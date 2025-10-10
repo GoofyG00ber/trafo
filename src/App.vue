@@ -6,6 +6,8 @@
     Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
     documentation
   </p>
+
+  <h1 className="text-3xl font-bold text-amber-500 underline">Hello world!</h1>
 </template>
 
 <style scoped></style>
