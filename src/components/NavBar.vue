@@ -6,8 +6,6 @@
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/programs">Programs</router-link></li>
         <li><router-link to="/about">About</router-link></li>
-        <li v-if="auth"><a @click.prevent="doLogout" href="#">Sign out</a></li>
-        <li v-else><router-link to="/admin/login">Admin</router-link></li>
       </ul>
     </div>
   </nav>

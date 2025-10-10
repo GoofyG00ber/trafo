@@ -7,6 +7,9 @@
           Password
           <input v-model="password" type="password" autocomplete="current-password" />
         </label>
+        <label class="keep">
+          <input type="checkbox" v-model="keep" /> Keep me logged in
+        </label>
         <div class="actions">
           <button type="submit">Sign in</button>
         </div>
@@ -22,6 +25,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useAuth } from '../composables/useAuth'
 
 const password = ref('')
+const keep = ref(false)
 const error = ref('')
 const router = useRouter()
 const route = useRoute()
@@ -29,7 +33,7 @@ const { login } = useAuth()
 
 async function submit() {
   error.value = ''
-  const ok = login(password.value)
+  const ok = login(password.value, keep.value)
   if (ok) {
     const redirectTo = (route.query.redirect as string) || '/admin'
     await router.replace(redirectTo)
