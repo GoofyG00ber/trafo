@@ -4,6 +4,8 @@ import ProgramsView from '../views/public/ProgramsView.vue'
 import AboutView from '../views/public/AboutView.vue'
 import GalleryView from '../views/public/GalleryView.vue'
 import EventDetail from '../views/public/EventDetail.vue'
+import ASZFView from '@/views/public/ASZFView.vue'
+import AdatkezelesiView from '@/views/public/AdatkezelesiView.vue'
 import AdminView from '../views/admin/AdminView.vue'
 import AdminLoginView from '../views/admin/AdminLoginView.vue'
 import AdminChangePasswordView from '../views/admin/AdminChangePasswordView.vue'
@@ -16,6 +18,8 @@ const routes = [
   { path: '/programs', name: 'Programs', component: ProgramsView },
   { path: '/about', name: 'About', component: AboutView },
   { path: '/gallery', name: 'Gallery', component: GalleryView },
+  { path: '/ASZF', name: 'Gallery', component: ASZFView },
+  { path: '/privacy-policy', name: 'Gallery', component: AdatkezelesiView },
   { path: '/events/:id', name: 'EventDetail', component: EventDetail },
   { path: '/admin/login', name: 'AdminLogin', component: AdminLoginView },
   {

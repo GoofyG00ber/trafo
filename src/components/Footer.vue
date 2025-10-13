@@ -60,16 +60,19 @@
       <div class="footer-info">
         <p>© {{ year }} Trafo. All rights reserved.</p>
         <p class="small">Built with Vue 3</p>
+        <p class="small"><router-link to="/ASZF">ÁSZF</router-link></p>
+        <p class="small">
+          <router-link to="/privacy-policy">Adatkezelési tájékoztató</router-link>
+        </p>
       </div>
-    </div> 
+    </div>
   </footer>
 </template>
-
 
 <script setup lang="ts">
 import { ref } from 'vue'
 const year = new Date().getFullYear()
-import MapView from "./MapView.vue";
+import MapView from './MapView.vue'
 </script>
 
 <style scoped>
@@ -86,27 +89,27 @@ import MapView from "./MapView.vue";
   text-align: center;
 }
 
-.footer-top h3{
+.footer-top h3 {
   margin-bottom: 10px;
-  color: #444
+  color: #444;
 }
 
-.supporters{
-  display:flex;
+.supporters {
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 40px;
   flex-wrap: wrap;
 }
 
-.supporters img{
+.supporters img {
   height: 60px;
   object-fit: contain;
   opacity: 0.9;
   transition: opacity 0.3s ease;
 }
 
-.supporters img:hover{
+.supporters img:hover {
   opacity: 1;
   transform: scale(1.05);
 }
@@ -117,8 +120,8 @@ import MapView from "./MapView.vue";
   margin: 10px 0;
 }
 
-.footer-bottom{
-  display:flex;
+.footer-bottom {
+  display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 30px;
@@ -129,7 +132,7 @@ import MapView from "./MapView.vue";
   width: 400px;
   height: 250px;
   flex-shrink: 0;
-  margin-left:5%;
+  margin-left: 5%;
 }
 
 .footer-info {
@@ -139,12 +142,12 @@ import MapView from "./MapView.vue";
   justify-content: center;
 }
 
-.footer-info p{
+.footer-info p {
   margin: 4px 0;
   color: #333;
 }
 
-.footer-info .small{
+.footer-info .small {
   font-size: 0.9rem;
   color: #555;
 }
