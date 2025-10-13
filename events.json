@@ -1,0 +1,76 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "kategoria": "Koncert",
+      "nev": "Tankcsapda – Élő Show",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-11-15T20:00:00",
+      "description": "A legendás Tankcsapda visszatér Budapestre egy fergeteges élő rock koncerttel. Klasszikusok és új dalok egy este!",
+      "tixa_link": "https://tixa.hu/tankcsapda2025"
+    },
+    {
+      "id": 2,
+      "kategoria": "Party",
+      "nev": "Punnany Massif – Klubest",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-11-22T22:00:00",
+      "description": "Punnany Massif különleges klubestje tele energiával, hiphoppal és hangulattal. Ne maradj le a pécsi zenekar élő fellépéséről!",
+      "tixa_link": "https://tixa.hu/punnanymassif2025"
+    },
+    {
+      "id": 3,
+      "kategoria": "Koncert",
+      "nev": "Halott Pénz – Aréna Tour",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-05T19:30:00",
+      "description": "Halott Pénz nagyszabású koncertje a Papp László Arénában. Modern hangzás, látványos színpad és meglepetés vendégek.",
+      "tixa_link": "https://tixa.hu/halottpenz2025"
+    },
+    {
+      "id": 4,
+      "kategoria": "DJ Night",
+      "nev": "Bricklake & Sterbinszky – Retro Rave",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-11-29T23:00:00",
+      "description": "Két ikonikus magyar DJ egy éjszakára újra összefog. Igazi retro rave hangulat hajnalig.",
+      "tixa_link": "https://tixa.hu/bricklake-sterbinszky2025"
+    },
+    {
+      "id": 5,
+      "kategoria": "Koncert",
+      "nev": "Bagossy Brothers Company – Ünnepi Turné",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-20T19:00:00",
+      "description": "A Bagossy Brothers Company karácsonyi hangulatú koncertje meghitt, mégis pörgős este minden rajongónak.",
+      "tixa_link": "https://tixa.hu/bagossy2025"
+    },
+    {
+      "id": 6,
+      "kategoria": "Party",
+      "nev": "Follow The Flow – After Party",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-21T22:00:00",
+      "description": "Follow The Flow fergeteges after partyja, ahol a zenekar tagjai is ott lesznek a DJ pult mellett.",
+      "tixa_link": "https://tixa.hu/followtheflow2025"
+    },
+    {
+      "id": 7,
+      "kategoria": "Koncert",
+      "nev": "ROAD – Téli Turné",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-28T20:00:00",
+      "description": "Kemény riffek és rock energiák a ROAD téli turnéján. Igazi koncertélmény minden rockernek.",
+      "tixa_link": "https://tixa.hu/road2025"
+    },
+    {
+      "id": 8,
+      "kategoria": "DJ Night",
+      "nev": "Julia Carpenter – Electro Winter",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-31T22:30:00",
+      "description": "Julia Carpenter újévi electro partyja tele fénnyel, tánccal és energiával. Az év legnagyobb bulija!",
+      "tixa_link": "https://tixa.hu/juliacarpenter2025"
+    }
+  ]
+}
