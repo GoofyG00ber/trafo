@@ -64,6 +64,7 @@
         <p class="small">
           <router-link to="/privacy-policy">Adatkezelési tájékoztató</router-link>
         </p>
+        <p class="small"><router-link to="/hazirend">Házirend</router-link></p>
       </div>
     </div>
   </footer>

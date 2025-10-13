@@ -3,137 +3,20 @@
     <aside class="sidebar w-56 bg-gray-100 border-r border-gray-200 p-4 min-h-screen">
       <h3 class="text-lg font-semibold mb-4">Admin</h3>
       <ul class="space-y-2">
-        <li>
-          <router-link
+        <li v-for="item in menuItems" :key="item.label">
+          <component
+            :is="item.action ? 'a' : 'router-link'"
+            v-bind="item.action ? { href: '#', onClick: item.action } : { to: item.to }"
             class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
-            to="/admin/change-password"
+            :class="item.danger ? 'text-red-600' : ''"
           >
-            <svg
-              class="w-5 h-5 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11v2h6v-2zM6 13v4a2 2 0 002 2h8a2 2 0 002-2v-4"
-              />
-            </svg>
-            <span>Change password</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
-            to="/admin/events"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M8 7V3m8 4V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"
-              />
-            </svg>
-            <span>Events</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
-            to="/admin/vezer"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 8c-1.657 0-3 1.343-3 3v.2a3 3 0 003 3.8 3 3 0 003-3.8V11c0-1.657-1.343-3-3-3z"
-              />
-            </svg>
-            <span>Vezer modal</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
-            to="/admin/ASZF_editor"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 6h18M3 10h18M3 14h18"
-              />
-            </svg>
-            <span>ÁSZF szerkesztő</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link
-            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
-            to="/admin/Adatkezelesi_editor"
-          >
-            <svg
-              class="w-5 h-5 text-gray-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11v2h6v-2z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 13v4a2 2 0 002 2h8a2 2 0 002-2v-4"
-              />
-            </svg>
-            <span>Adatkezelés</span>
-          </router-link>
-        </li>
-        <li>
-          <a
-            @click.prevent="doLogout"
-            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 text-red-600 cursor-pointer"
-            href="#"
-          >
-            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7"
-              />
-            </svg>
-            <span>Sign out</span>
-          </a>
+            <span class="w-5 h-5" v-html="item.icon"></span>
+            <span>{{ item.label }}</span>
+          </component>
         </li>
       </ul>
     </aside>
+
     <section class="content flex-1 p-6 bg-white min-h-screen">
       <router-view />
     </section>
@@ -151,6 +34,45 @@ function doLogout() {
   logout()
   router.push('/admin/login')
 }
+
+const menuItems = [
+  {
+    label: 'Események',
+    to: '/admin/events',
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 2v4M8 2v4M3 10h18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    label: 'Vezer modal',
+    to: '/admin/vezer',
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="14" rx="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 11h18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    label: 'ÁSZF szerkesztő',
+    to: '/admin/ASZF_editor',
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 13h8M8 17h8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    label: 'Adatkezelés',
+    to: '/admin/Adatkezelesi_editor',
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    label: 'Házirend',
+    to: '/admin/hazirend_editor',
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    label: 'Change password',
+    to: '/admin/change-password',
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="11" width="18" height="10" rx="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+  {
+    label: 'Sign out',
+    action: doLogout,
+    danger: true,
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 17l5-5-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 19V5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  },
+]
 </script>
 
 <style scoped>
