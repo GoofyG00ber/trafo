@@ -85,7 +85,7 @@
                 d="M3 6h18M3 10h18M3 14h18"
               />
             </svg>
-            <span>ASZF szerkesztő</span>
+            <span>ÁSZF szerkesztő</span>
           </router-link>
         </li>
         <li>
