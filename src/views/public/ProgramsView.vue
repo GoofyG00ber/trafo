@@ -1,12 +1,51 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import EventCalendar from '@/components/EventCalendar.vue'
 import EventList from '@/components/EventList.vue'
 
 const viewMode = ref<'calendar' | 'list'>('calendar')
+const PROGRAMS_STATE_KEY = 'trafo:programs-state'
+
 function setView(mode: 'calendar' | 'list') {
+  // user explicitly changed view: clear saved state so back doesn't override
+  try {
+    sessionStorage.removeItem(PROGRAMS_STATE_KEY)
+  } catch (_) {}
   viewMode.value = mode
 }
+
+onMounted(() => {
+  try {
+    const raw = sessionStorage.getItem(PROGRAMS_STATE_KEY)
+    if (!raw) return
+    const s = JSON.parse(raw)
+    if (!s) return
+    if (s.source === 'calendar') viewMode.value = 'calendar'
+    if (s.source === 'list') viewMode.value = 'list'
+  } catch (_) {}
+  // ensure when user navigates back via browser history we re-check saved state
+  const onPop = () => {
+    try {
+      const raw2 = sessionStorage.getItem(PROGRAMS_STATE_KEY)
+      if (!raw2) return
+      const s2 = JSON.parse(raw2)
+      if (!s2) return
+      if (s2.source === 'calendar') viewMode.value = 'calendar'
+      if (s2.source === 'list') viewMode.value = 'list'
+    } catch (_) {}
+  }
+  window.addEventListener('popstate', onPop)
+  // cleanup on unmount
+  ;(window as any).__programs_pop = onPop
+})
+
+onBeforeUnmount(() => {
+  try {
+    const fn = (window as any).__programs_pop
+    if (fn) window.removeEventListener('popstate', fn)
+    delete (window as any).__programs_pop
+  } catch (_) {}
+})
 </script>
 
 <template>

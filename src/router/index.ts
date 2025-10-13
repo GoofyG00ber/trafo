@@ -3,6 +3,7 @@ import HomeView from '../views/public/HomeView.vue'
 import ProgramsView from '../views/public/ProgramsView.vue'
 import AboutView from '../views/public/AboutView.vue'
 import GalleryView from '../views/public/GalleryView.vue'
+import EventDetail from '../views/public/EventDetail.vue'
 import AdminView from '../views/admin/AdminView.vue'
 import AdminLoginView from '../views/admin/AdminLoginView.vue'
 import AdminChangePasswordView from '../views/admin/AdminChangePasswordView.vue'
@@ -15,6 +16,7 @@ const routes = [
   { path: '/programs', name: 'Programs', component: ProgramsView },
   { path: '/about', name: 'About', component: AboutView },
   { path: '/gallery', name: 'Gallery', component: GalleryView },
+  { path: '/events/:id', name: 'EventDetail', component: EventDetail },
   { path: '/admin/login', name: 'AdminLogin', component: AdminLoginView },
   {
     path: '/admin',

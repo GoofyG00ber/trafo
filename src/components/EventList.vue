@@ -10,8 +10,14 @@
         aria-label="Keresés események között"
       />
 
+      <div class="w-48">
+        <select v-model="category" class="w-full px-2 py-2 border rounded bg-white">
+          <option value="">Összes kategória</option>
+          <option v-for="c in categoryOptions" :key="c" :value="c">{{ c }}</option>
+        </select>
+      </div>
+
       <div class="flex items-center gap-2">
-        <label class="text-sm text-gray-600 mr-2">Dátumtartomány</label>
         <div class="flex items-center gap-2 border rounded bg-white px-2 py-1">
           <input
             v-model="startDate"
@@ -29,8 +35,27 @@
         </div>
       </div>
 
-      <button type="button" @click="clearFilters" class="px-3 py-1 bg-gray-200 rounded ml-auto">
-        Töröl
+      <button
+        type="button"
+        @click="clearFilters"
+        :class="[
+          'px-3 py-2 rounded ml-auto inline-flex items-center justify-center focus:outline-none',
+          filtersActive ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800',
+        ]"
+        aria-label="Szűrők törlése"
+        title="Szűrők törlése"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-5 h-5"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-linecap="round" />
+          <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-linecap="round" />
+        </svg>
       </button>
     </div>
 
@@ -38,12 +63,15 @@
       <div
         v-for="ev in filteredEvents"
         :key="ev.id"
-        class="card bg-gray-800 text-white rounded overflow-hidden shadow"
+        class="card bg-gray-800 text-white rounded overflow-hidden shadow transition-transform"
       >
-        <div
-          class="img-wrap h-44 bg-cover bg-center"
+        <button
+          type="button"
+          class="img-link block h-44 bg-cover bg-center w-full"
           :style="{ backgroundImage: `url(${imageSrc(ev)})` }"
-        ></div>
+          @click="openDetail(ev)"
+          aria-label="Esemény részletei"
+        ></button>
         <div class="p-4">
           <div class="flex items-center justify-between mb-2">
             <span
@@ -56,8 +84,16 @@
           </div>
           <h3 class="text-lg font-extrabold tracking-tight mb-2">{{ ev.nev || ev.title }}</h3>
           <div class="flex items-center gap-3 mt-4">
-            <button class="btn-secondary">részletek ›</button>
-            <button class="btn-primary">jegyvásárlás ›</button>
+            <button class="btn-secondary hoverable" @click="openDetail(ev)">részletek ›</button>
+            <a
+              v-if="ev.tixa_link"
+              :href="ev.tixa_link"
+              class="btn-primary hoverable-link"
+              target="_blank"
+              rel="noopener"
+              >jegyvásárlás ›</a
+            >
+            <button v-else class="btn-primary" disabled>jegyvásárlás ›</button>
           </div>
         </div>
       </div>
@@ -71,12 +107,14 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 // placeholder is placed in /public so we can reference it at runtime
 const placeholder = '/placeholder.png'
 
 const events = ref<any[]>([])
 const query = ref('')
+const category = ref('')
 
 function formatInputDate(d: Date) {
   const y = d.getFullYear()
@@ -98,6 +136,7 @@ function clearFilters() {
   query.value = ''
   startDate.value = defaultStart
   endDate.value = defaultEnd
+  category.value = ''
 }
 
 function getEventDate(ev: any): Date | null {
@@ -128,6 +167,11 @@ const filteredEvents = computed(() => {
   const end = endDate.value ? new Date(endDate.value) : null
 
   return events.value.filter((ev) => {
+    // category filter
+    if (category.value) {
+      const c = (ev.kategoria || ev.kategoria_name || ev.type || '').toString().toLowerCase()
+      if (!c.includes(category.value.toLowerCase())) return false
+    }
     // date filtering
     const evDate = getEventDate(ev)
     if (start && evDate) {
@@ -158,6 +202,48 @@ const filteredEvents = computed(() => {
   })
 })
 
+// derive category options from loaded events
+const categoryOptions = computed(() => {
+  const set = new Set<string>()
+  for (const ev of events.value) {
+    const c = ev.kategoria || ev.kategoria_name || ev.type || ''
+    if (c) set.add(String(c))
+  }
+  return Array.from(set).sort()
+})
+
+const router = useRouter()
+const PROGRAMS_STATE_KEY = 'trafo:programs-state'
+
+const filtersActive = computed(() => {
+  if ((query.value || '').trim() !== '') return true
+  if ((category.value || '') !== '') return true
+  if ((startDate.value || '') !== defaultStart) return true
+  if ((endDate.value || '') !== defaultEnd) return true
+  return false
+})
+
+function saveProgramsStateForList() {
+  try {
+    const state = {
+      source: 'list',
+      query: query.value,
+      startDate: startDate.value,
+      endDate: endDate.value,
+      category: category.value,
+    }
+    sessionStorage.setItem(PROGRAMS_STATE_KEY, JSON.stringify(state))
+  } catch (_) {}
+}
+
+function openDetail(ev: any) {
+  if (!ev) return
+  saveProgramsStateForList()
+  // prefer id property; fall back to index-like id or slug
+  const id = ev.id || ev._id || ev.slug || ev.name || ev.title
+  router.push({ name: 'EventDetail', params: { id } }).catch(() => {})
+}
+
 async function loadEvents() {
   try {
     const res = await fetch('http://localhost:3000/events')
@@ -170,6 +256,21 @@ async function loadEvents() {
 }
 
 onMounted(loadEvents)
+
+// restore saved filters if present
+onMounted(() => {
+  try {
+    const raw = sessionStorage.getItem(PROGRAMS_STATE_KEY)
+    if (!raw) return
+    const s = JSON.parse(raw)
+    if (s && s.source === 'list') {
+      if (s.query) query.value = s.query
+      if (s.startDate) startDate.value = s.startDate
+      if (s.endDate) endDate.value = s.endDate
+      if (s.category) category.value = s.category
+    }
+  } catch (_) {}
+})
 
 function categoryClass(cat: string | undefined) {
   const c = (cat || '').toString().toLowerCase()
@@ -225,5 +326,60 @@ function imageSrc(ev: any) {
   color: #ddd;
   padding: 0.45rem 0.7rem;
   border-radius: 4px;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: #444;
+  transform: translateY(-1px);
+  transition:
+    transform 120ms ease,
+    background 120ms ease;
+}
+
+.hoverable {
+  cursor: pointer;
+}
+.hoverable:active {
+  transform: translateY(0);
+}
+
+/* card hover scaling */
+.card {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+.card:hover {
+  transform: scale(1.04);
+  z-index: 4;
+}
+
+.img-link {
+  cursor: pointer;
+  background-color: #111;
+  background-size: cover;
+  background-position: center;
+  border: none;
+}
+
+.btn-primary,
+.btn-primary.hoverable-link {
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    background 120ms ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+.btn-primary[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+a:hover {
+  text-decoration: none;
 }
 </style>

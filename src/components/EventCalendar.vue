@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const today = new Date()
 const viewYear = ref(today.getFullYear())
@@ -65,6 +66,20 @@ async function loadEvents() {
 
 onMounted(() => {
   loadEvents()
+})
+
+// restore saved calendar view if present
+onMounted(() => {
+  try {
+    const raw = sessionStorage.getItem(PROGRAMS_STATE_KEY)
+    if (!raw) return
+    const s = JSON.parse(raw)
+    if (!s) return
+    if (s.source === 'calendar') {
+      if (typeof s.viewYear === 'number') viewYear.value = s.viewYear
+      if (typeof s.viewMonth === 'number') viewMonth.value = s.viewMonth
+    }
+  } catch (_) {}
 })
 
 function monthTitleFmt(year: number, month: number) {
@@ -141,9 +156,25 @@ function goToMonth(delta: number) {
   viewYear.value = y
 }
 
+const router = useRouter()
+const PROGRAMS_STATE_KEY = 'trafo:programs-state'
+
+function saveProgramsStateForCalendar() {
+  try {
+    const state = {
+      source: 'calendar',
+      viewYear: viewYear.value,
+      viewMonth: viewMonth.value,
+    }
+    sessionStorage.setItem(PROGRAMS_STATE_KEY, JSON.stringify(state))
+  } catch (_) {}
+}
+
 function openEvent(ev: any) {
-  // placeholder: open console or emit event; keep simple
-  alert(`${ev.nev || ev.title || 'Event'}\n${ev.datum_ido || ev.date || ''}`)
+  if (!ev) return
+  saveProgramsStateForCalendar()
+  const id = ev.id || ev._id || ev.slug || ev.name || ev.title
+  router.push({ name: 'EventDetail', params: { id } }).catch(() => {})
 }
 
 // expose
