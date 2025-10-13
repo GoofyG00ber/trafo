@@ -11,20 +11,7 @@
   </nav>
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuth } from '../composables/useAuth'
-
-const router = useRouter()
-const { isAuthenticated, logout } = useAuth()
-const auth = computed(() => isAuthenticated.value)
-
-function doLogout() {
-  logout()
-  router.push('/')
-}
-</script>
+<script setup lang="ts"></script>
 
 <style scoped>
 .nav {

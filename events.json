@@ -1,0 +1,204 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "kategoria": "Koncert",
+      "nev": "Tankcsapda – Élő Show",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-11-15T20:00:00",
+      "description": "A legendás Tankcsapda visszatér Budapestre egy fergeteges élő rock koncerttel. Klasszikusok és új dalok egy este!",
+      "tixa_link": "https://tixa.hu/tankcsapda2025",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "kategoria": "Party",
+      "nev": "Punnany Massif – Klubest",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-11-22T22:00:00",
+      "description": "Punnany Massif különleges klubestje tele energiával, hiphoppal és hangulattal. Ne maradj le a pécsi zenekar élő fellépéséről!",
+      "tixa_link": "https://tixa.hu/punnanymassif2025",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "kategoria": "Koncert",
+      "nev": "Halott Pénz – Aréna Tour",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-05T19:30:00",
+      "description": "Halott Pénz nagyszabású koncertje a Papp László Arénában. Modern hangzás, látványos színpad és meglepetés vendégek.",
+      "tixa_link": "https://tixa.hu/halottpenz2025",
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "kategoria": "DJ Night",
+      "nev": "Bricklake & Sterbinszky – Retro Rave",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-11-29T23:00:00",
+      "description": "Két ikonikus magyar DJ egy éjszakára újra összefog. Igazi retro rave hangulat hajnalig.",
+      "tixa_link": "https://tixa.hu/bricklake-sterbinszky2025",
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "kategoria": "Koncert",
+      "nev": "Bagossy Brothers Company – Ünnepi Turné",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-20T19:00:00",
+      "description": "A Bagossy Brothers Company karácsonyi hangulatú koncertje meghitt, mégis pörgős este minden rajongónak.",
+      "tixa_link": "https://tixa.hu/bagossy2025",
+      "status": "active"
+    },
+    {
+      "id": 6,
+      "kategoria": "Party",
+      "nev": "Follow The Flow – After Party",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-21T22:00:00",
+      "description": "Follow The Flow fergeteges after partyja, ahol a zenekar tagjai is ott lesznek a DJ pult mellett.",
+      "tixa_link": "https://tixa.hu/followtheflow2025",
+      "status": "invisible"
+    },
+    {
+      "id": 7,
+      "kategoria": "Koncert",
+      "nev": "ROAD – Téli Turné",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-28T20:00:00",
+      "description": "Kemény riffek és rock energiák a ROAD téli turnéján. Igazi koncertélmény minden rockernek.",
+      "tixa_link": "https://tixa.hu/road2025",
+      "status": "active"
+    },
+    {
+      "id": 8,
+      "kategoria": "DJ Night",
+      "nev": "Julia Carpenter – Electro Winter",
+      "kep": "placeholder.png",
+      "datum_ido": "2025-12-31T22:30:00",
+      "description": "Julia Carpenter újévi electro partyja tele fénnyel, tánccal és energiával. Az év legnagyobb bulija!",
+      "tixa_link": "https://tixa.hu/juliacarpenter2025",
+      "status": "active"
+    },
+    {
+      "id": 9,
+      "kategoria": "Koncert",
+      "nev": "ByeAlex és a Slepp – Akusztik Est",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-01-10T19:00:00",
+      "description": "ByeAlex különleges akusztikus koncertje intim hangulatban, újragondolt dalokkal és történetekkel.",
+      "tixa_link": "https://tixa.hu/byealex2026",
+      "status": "active"
+    },
+    {
+      "id": 10,
+      "kategoria": "Party",
+      "nev": "ValMar – Pop Night",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-01-17T22:00:00",
+      "description": "A ValMar duó hatalmas pop partyja a legújabb slágereikkel. Garantáltan táncolni fogsz!",
+      "tixa_link": "https://tixa.hu/valmar2026",
+      "status": "active"
+    },
+    {
+      "id": 11,
+      "kategoria": "Koncert",
+      "nev": "Kowalsky meg a Vega – Téli Fesztivál",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-01-24T20:00:00",
+      "description": "Pozitív energiák és nagy slágerek – Kowalsky meg a Vega újévi koncertje tele szeretettel.",
+      "tixa_link": "https://tixa.hu/kowalsky2026",
+      "status": "active"
+    },
+    {
+      "id": 12,
+      "kategoria": "DJ Night",
+      "nev": "Newik – Tech House Session",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-01-31T23:30:00",
+      "description": "Newik hozza a legfrissebb house és techno ütemeket egy energikus éjszakára.",
+      "tixa_link": "https://tixa.hu/newik2026",
+      "status": "invisible"
+    },
+    {
+      "id": 13,
+      "kategoria": "Koncert",
+      "nev": "Anna and the Barbies – Akusztik",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-02-07T20:00:00",
+      "description": "Anna and the Barbies meghitt akusztikus estje – zene, lélek, energia.",
+      "tixa_link": "https://tixa.hu/annaandthebarbies2026",
+      "status": "active"
+    },
+    {
+      "id": 14,
+      "kategoria": "Party",
+      "nev": "Carson Coma – Indie Night",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-02-14T22:00:00",
+      "description": "A Carson Coma különleges indie partyja – alternatív hangulat és fiatalos energia.",
+      "tixa_link": "https://tixa.hu/carsoncoma2026",
+      "status": "cancelled"
+    },
+    {
+      "id": 15,
+      "kategoria": "DJ Night",
+      "nev": "Willcox – Sunset Beats",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-03-01T21:00:00",
+      "description": "Willcox chill és house mixei egy tavaszi estére – relax és tánc egyben.",
+      "tixa_link": "https://tixa.hu/willcox2026",
+      "status": "active"
+    },
+    {
+      "id": 16,
+      "kategoria": "Koncert",
+      "nev": "Majka & Curtis – Aréna Show",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-03-15T20:00:00",
+      "description": "A rap duó újra együtt! Hatalmas színpad, látvány és közönségkedvenc dalok.",
+      "tixa_link": "https://tixa.hu/majkacurtis2026",
+      "status": "active"
+    },
+    {
+      "id": 17,
+      "kategoria": "Party",
+      "nev": "Blahalouisiana – Pop Session",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-03-22T22:30:00",
+      "description": "Blahalouisiana pörgős tavaszi bulija tele életérzéssel és táncolható popzenével.",
+      "tixa_link": "https://tixa.hu/blahalouisiana2026",
+      "status": "invisible"
+    },
+    {
+      "id": 18,
+      "kategoria": "Koncert",
+      "nev": "Hiperkarma – Tavaszi Turné",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-04-05T19:00:00",
+      "description": "Bérczesi Robi és a Hiperkarma új lemezbemutató koncertje – mély szövegek, különleges hangulat.",
+      "tixa_link": "https://tixa.hu/hiperkarma2026",
+      "status": "active"
+    },
+    {
+      "id": 19,
+      "kategoria": "DJ Night",
+      "nev": "Metzker Viktória – Summer Warmup",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-04-12T23:00:00",
+      "description": "Metzker Viki forró ütemekkel hangol a nyárra – EDM és pop remixek hajnalig.",
+      "tixa_link": "https://tixa.hu/metzkerviktoria2026",
+      "status": "active"
+    },
+    {
+      "id": 20,
+      "kategoria": "Koncert",
+      "nev": "Auróra – Punk Night",
+      "kep": "placeholder.png",
+      "datum_ido": "2026-04-19T20:00:00",
+      "description": "A legendás Auróra punk banda visszatér! Zúzós riffek, lendület, és igazi magyar punk hangulat.",
+      "tixa_link": "https://tixa.hu/aurora2026",
+      "status": "active"
+    }
+  ]
+}
