@@ -11,6 +11,8 @@ import AdminLoginView from '../views/admin/AdminLoginView.vue'
 import AdminChangePasswordView from '../views/admin/AdminChangePasswordView.vue'
 import AdminEventsView from '../views/admin/AdminEventsView.vue'
 import AdminVezerView from '../views/admin/AdminVezerView.vue'
+import AdminASZFView from '../views/admin/AdminASZFView.vue'
+import AdminAdatkezelesiView from '../views/admin/AdminAdatkezelesiView.vue'
 import { useAuth } from '../composables/useAuth'
 
 const routes = [
@@ -18,8 +20,8 @@ const routes = [
   { path: '/programs', name: 'Programs', component: ProgramsView },
   { path: '/about', name: 'About', component: AboutView },
   { path: '/gallery', name: 'Gallery', component: GalleryView },
-  { path: '/ASZF', name: 'Gallery', component: ASZFView },
-  { path: '/privacy-policy', name: 'Gallery', component: AdatkezelesiView },
+  { path: '/ASZF', name: 'aszf', component: ASZFView },
+  { path: '/privacy-policy', name: 'privacy-policy', component: AdatkezelesiView },
   { path: '/events/:id', name: 'EventDetail', component: EventDetail },
   { path: '/admin/login', name: 'AdminLogin', component: AdminLoginView },
   {
@@ -31,6 +33,12 @@ const routes = [
       { path: 'change-password', name: 'AdminChangePassword', component: AdminChangePasswordView },
       { path: 'events', name: 'AdminEvents', component: AdminEventsView },
       { path: 'vezer', name: 'AdminVezer', component: AdminVezerView },
+      { path: 'ASZF_editor', name: 'AdminASZFeditor', component: AdminASZFView },
+      {
+        path: 'Adatkezelesi_editor',
+        name: 'AdminAdatkezelesiEditor',
+        component: AdminAdatkezelesiView,
+      },
       { path: '', redirect: { name: 'AdminChangePassword' } },
     ],
   },

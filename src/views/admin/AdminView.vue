@@ -67,6 +67,55 @@
           </router-link>
         </li>
         <li>
+          <router-link
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
+            to="/admin/ASZF_editor"
+          >
+            <svg
+              class="w-5 h-5 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 6h18M3 10h18M3 14h18"
+              />
+            </svg>
+            <span>ASZF szerkesztő</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link
+            class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100"
+            to="/admin/Adatkezelesi_editor"
+          >
+            <svg
+              class="w-5 h-5 text-gray-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11v2h6v-2z"
+              />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 13v4a2 2 0 002 2h8a2 2 0 002-2v-4"
+              />
+            </svg>
+            <span>Adatkezelés</span>
+          </router-link>
+        </li>
+        <li>
           <a
             @click.prevent="doLogout"
             class="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-gray-100 text-red-600 cursor-pointer"
