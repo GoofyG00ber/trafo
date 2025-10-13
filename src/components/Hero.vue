@@ -39,6 +39,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { getEvents } from '@/api/events'
 
 const upcomingEvents = ref([])
 const currentIndex = ref(0)
@@ -65,14 +66,17 @@ function resetAuto() {
 }
 
 onMounted(async () => {
-  const res = await fetch('http://localhost:3000/events')
-  const data = await res.json()
-
-  const now = new Date()
-  upcomingEvents.value = data
-    .filter((e) => new Date(e.datum_ido) > now)
-    .sort((a, b) => new Date(a.datum_ido) - new Date(b.datum_ido))
-    .slice(0, 5)
+  try {
+    const data = await getEvents()
+    const now = new Date()
+    upcomingEvents.value = (data || [])
+      .filter((e) => new Date(e.datum_ido) > now)
+      .sort((a, b) => new Date(a.datum_ido).getTime() - new Date(b.datum_ido).getTime())
+      .slice(0, 5)
+  } catch (e) {
+    upcomingEvents.value = []
+    console.error('Failed to load upcoming events', e)
+  }
   startAuto()
 })
 

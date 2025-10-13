@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { getEvents } from '@/api/events'
 import { useRouter } from 'vue-router'
 
 const today = new Date()
@@ -55,8 +56,7 @@ const events = ref<any[]>([])
 
 async function loadEvents() {
   try {
-    const res = await fetch('http://localhost:3000/events')
-    const data = await res.json()
+    const data = await getEvents()
     events.value = Array.isArray(data) ? data : []
   } catch (e) {
     console.error('Failed to load events', e)
