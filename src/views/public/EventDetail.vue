@@ -64,6 +64,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import * as eventsApi from '@/api/events'
 
 const route = useRoute()
 const router = useRouter()
@@ -81,9 +82,9 @@ async function loadEvent() {
 
     // try direct fetch by id first
     try {
-      const res = await fetch(`http://localhost:3000/events/${id}`)
-      if (res.ok) {
-        event.value = await res.json()
+      const ev = await eventsApi.getEvent(id)
+      if (ev) {
+        event.value = ev
         return
       }
     } catch (_) {
@@ -91,9 +92,7 @@ async function loadEvent() {
     }
 
     // fallback: fetch all events and try to match by common fields
-    const resAll = await fetch('http://localhost:3000/events')
-    if (!resAll.ok) throw new Error('failed to load events')
-    const list = await resAll.json()
+    const list = await eventsApi.getEvents()
     if (!Array.isArray(list)) {
       event.value = null
       return

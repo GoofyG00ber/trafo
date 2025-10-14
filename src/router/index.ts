@@ -4,11 +4,18 @@ import ProgramsView from '../views/public/ProgramsView.vue'
 import AboutView from '../views/public/AboutView.vue'
 import GalleryView from '../views/public/GalleryView.vue'
 import EventDetail from '../views/public/EventDetail.vue'
+import ASZFView from '@/views/public/ASZFView.vue'
+import AdatkezelesiView from '@/views/public/AdatkezelesiView.vue'
+import HazirendView from '@/views/public/HazirendView.vue'
+
 import AdminView from '../views/admin/AdminView.vue'
 import AdminLoginView from '../views/admin/AdminLoginView.vue'
 import AdminChangePasswordView from '../views/admin/AdminChangePasswordView.vue'
 import AdminEventsView from '../views/admin/AdminEventsView.vue'
 import AdminVezerView from '../views/admin/AdminVezerView.vue'
+import AdminASZFView from '../views/admin/AdminASZFView.vue'
+import AdminAdatkezelesiView from '../views/admin/AdminAdatkezelesiView.vue'
+import AdminHazirendView from '@/views/admin/AdminHazirendView.vue'
 import { useAuth } from '../composables/useAuth'
 
 const routes = [
@@ -16,6 +23,9 @@ const routes = [
   { path: '/programs', name: 'Programs', component: ProgramsView },
   { path: '/about', name: 'About', component: AboutView },
   { path: '/gallery', name: 'Gallery', component: GalleryView },
+  { path: '/ASZF', name: 'aszf', component: ASZFView },
+  { path: '/hazirend', name: 'hazirend', component: HazirendView },
+  { path: '/privacy-policy', name: 'privacy-policy', component: AdatkezelesiView },
   { path: '/events/:id', name: 'EventDetail', component: EventDetail },
   { path: '/admin/login', name: 'AdminLogin', component: AdminLoginView },
   {
@@ -27,6 +37,13 @@ const routes = [
       { path: 'change-password', name: 'AdminChangePassword', component: AdminChangePasswordView },
       { path: 'events', name: 'AdminEvents', component: AdminEventsView },
       { path: 'vezer', name: 'AdminVezer', component: AdminVezerView },
+      { path: 'ASZF_editor', name: 'AdminASZFeditor', component: AdminASZFView },
+      { path: 'hazirend_editor', name: 'AdminHazirendeditor', component: AdminHazirendView },
+      {
+        path: 'Adatkezelesi_editor',
+        name: 'AdminAdatkezelesiEditor',
+        component: AdminAdatkezelesiView,
+      },
       { path: '', redirect: { name: 'AdminChangePassword' } },
     ],
   },
