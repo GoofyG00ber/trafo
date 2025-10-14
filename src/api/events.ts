@@ -18,7 +18,9 @@ export async function getEvents(): Promise<EventLike[]> {
 }
 
 export async function getEvent(id: string | number): Promise<EventLike | null> {
-  const res = await fetch(`${BASE}/${encodeURIComponent(String(id))}`, { headers: { Accept: 'application/json' } })
+  const res = await fetch(`${BASE}/${encodeURIComponent(String(id))}`, {
+    headers: { Accept: 'application/json' },
+  })
   if (res.status === 404) return null
   if (!res.ok) throw new Error('Failed to fetch event: ' + res.status)
   return await handleRes(res)
