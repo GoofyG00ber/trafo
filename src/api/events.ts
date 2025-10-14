@@ -39,4 +39,29 @@ export async function deleteEvent(id) {
   return true
 }
 
-export default { getEvents, getEvent, createEvent, updateEvent, deleteEvent }
+export async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  const res = await fetch('http://localhost:3001/upload', {
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!res.ok) {
+    const error = await res.text()
+    throw new Error('Upload failed: ' + error)
+  }
+
+  const data = await res.json()
+  return data.filename
+}
+
+export default {
+  getEvents,
+  getEvent,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+  uploadImage,
+}
