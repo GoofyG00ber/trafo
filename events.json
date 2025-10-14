@@ -4,7 +4,7 @@
       "id": 1,
       "kategoria": "Koncert",
       "nev": "Tankcsapda – Élő Show",
-      "kep": "placeholder.png",
+      "kep": "placeholder.jpg",
       "datum_ido": "2025-11-15T20:00:00",
       "description": "A legendás Tankcsapda visszatér Budapestre egy fergeteges élő rock koncerttel. Klasszikusok és új dalok egy este!",
       "tixa_link": "https://tixa.hu/tankcsapda2025",
@@ -198,6 +198,26 @@
       "datum_ido": "2026-04-19T20:00:00",
       "description": "A legendás Auróra punk banda visszatér! Zúzós riffek, lendület, és igazi magyar punk hangulat.",
       "tixa_link": "https://tixa.hu/aurora2026",
+      "status": "active"
+    },
+    {
+      "id": 21,
+      "kategoria": "Koncert",
+      "nev": "Tankcsapda – Élő Show2",
+      "kep": "placeholder.jpg",
+      "datum_ido": "2025-11-15T20:00:00",
+      "description": "A legendás Tankcsapda visszatér Budapestre egy fergeteges élő rock koncerttel. Klasszikusok és új dalok egy este!",
+      "tixa_link": "https://tixa.hu/tankcsapda2025",
+      "status": "active"
+    },
+    {
+      "id": 22,
+      "nev": "yessirski",
+      "kategoria": "sigma",
+      "kep": "1760438716985-533987005.jpg",
+      "datum_ido": "2025-10-15T12:45:00.000Z",
+      "description": "asd",
+      "tixa_link": "",
       "status": "active"
     }
   ]

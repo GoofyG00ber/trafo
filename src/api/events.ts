@@ -1,64 +1,60 @@
+// src/api/events.ts
 const BASE = 'http://localhost:3000/events'
 
-type EventLike = Record<string, any>
-
-async function handleRes(res: Response) {
-  const text = await res.text()
-  try {
-    return text ? JSON.parse(text) : null
-  } catch (_) {
-    return text
-  }
+export async function getEvents() {
+  const res = await fetch(BASE)
+  if (!res.ok) throw new Error(`Failed to fetch events (${res.status})`)
+  return res.json()
 }
 
-export async function getEvents(): Promise<EventLike[]> {
-  const res = await fetch(BASE, { headers: { Accept: 'application/json' } })
-  if (!res.ok) throw new Error('Failed to fetch events: ' + res.status)
-  return (await handleRes(res)) || []
+export async function getEvent(id) {
+  const res = await fetch(`${BASE}/${id}`)
+  if (!res.ok) throw new Error(`Event not found (${res.status})`)
+  return res.json()
 }
 
-export async function getEvent(id: string | number): Promise<EventLike | null> {
-  const res = await fetch(`${BASE}/${encodeURIComponent(String(id))}`, { headers: { Accept: 'application/json' } })
-  if (res.status === 404) return null
-  if (!res.ok) throw new Error('Failed to fetch event: ' + res.status)
-  return await handleRes(res)
-}
-
-export async function createEvent(payload: EventLike): Promise<EventLike> {
+export async function createEvent(data) {
   const res = await fetch(BASE, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
   })
-  if (!res.ok) {
-    const t = await res.text()
-    throw new Error('Create failed: ' + res.status + ' ' + t)
-  }
-  return await handleRes(res)
+  if (!res.ok) throw new Error(`Create failed (${res.status})`)
+  return res.json()
 }
 
-export async function updateEvent(id: string | number, payload: EventLike): Promise<EventLike> {
-  const res = await fetch(`${BASE}/${encodeURIComponent(String(id))}`, {
+export async function updateEvent(id, data) {
+  const res = await fetch(`${BASE}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
   })
-  if (!res.ok) {
-    const t = await res.text()
-    throw new Error('Update failed: ' + res.status + ' ' + t)
-  }
-  return await handleRes(res)
+  if (!res.ok) throw new Error(`Update failed (${res.status})`)
+  return res.json()
 }
 
-export async function deleteEvent(id: string | number): Promise<void> {
-  const res = await fetch(`${BASE}/${encodeURIComponent(String(id))}`, {
-    method: 'DELETE',
-    headers: { Accept: 'application/json' },
+export async function deleteEvent(id) {
+  const res = await fetch(`${BASE}/${id}`, { method: 'DELETE' })
+  if (!res.ok) throw new Error(`Delete failed (${res.status})`)
+  return true
+}
+
+export async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData()
+  formData.append('image', file)
+
+  const res = await fetch('http://localhost:3001/upload', {
+    method: 'POST',
+    body: formData,
   })
+
   if (!res.ok) {
-    const t = await res.text()
-    throw new Error('Delete failed: ' + res.status + ' ' + t)
+    const error = await res.text()
+    throw new Error('Upload failed: ' + error)
   }
+
+  const data = await res.json()
+  return data.filename
 }
 
 export default {
@@ -67,4 +63,5 @@ export default {
   createEvent,
   updateEvent,
   deleteEvent,
+  uploadImage,
 }

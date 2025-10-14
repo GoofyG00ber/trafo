@@ -10,141 +10,90 @@
       </button>
     </header>
 
-    <section v-if="loading" class="text-gray-600">Loading events...</section>
+    <!-- moved: create panel now appears immediately under the header -->
+    <section v-if="isNew" class="mt-0 mb-6 bg-white p-5 rounded border shadow-sm">
+      <h2 class="text-lg font-medium text-gray-800 mb-4">Create new event</h2>
 
-    <section v-else>
-      <!-- table-like header: only nev, kategoria, datum_ido -->
-      <div class="grid grid-cols-4 gap-4 text-sm text-gray-500 font-medium px-3 py-2 border-b">
-        <div>#</div>
-        <div>Név</div>
-        <div>Kategória</div>
-        <div class="text-right">Datum / Ido</div>
-      </div>
+      <form @submit.prevent="submit" class="space-y-4">
+        <!-- fixed fields always present -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">Név</label>
+            <input v-model="edited.nev" class="w-full px-3 py-2 border rounded" />
+          </div>
 
-      <!-- rows with inline expandable editor -->
-      <div class="space-y-2 mt-2">
-        <div
-          v-for="ev in events"
-          :key="ev.id"
-          class="rounded overflow-hidden border"
-          :class="['transition-shadow', expandedId === ev.id ? 'shadow-md' : '']"
-          :style="categoryRowStyle(ev.kategoria)"
-        >
-          <div class="grid grid-cols-4 gap-4 items-center bg-white p-3">
-            <div class="text-sm text-gray-600 font-medium">#{{ ev.id }}</div>
-
-            <div class="text-sm text-gray-800 truncate">
-              {{ ev.nev ?? ev.title ?? '-' }}
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">Kategória</label>
+            <div class="flex gap-2 items-center">
+              <select v-model="edited.kategoria" class="w-full px-3 py-2 border rounded">
+                <option v-for="opt in kategoriak" :key="opt" :value="opt">{{ opt }}</option>
+              </select>
             </div>
 
-            <div class="text-sm text-gray-700 font-medium">
-              {{ ev.kategoria ?? '-' }}
-            </div>
-
-            <div class="text-right text-sm text-gray-600">
-              <div class="flex items-center justify-end gap-2">
-                <div class="text-right">
-                  {{ ev.datum_ido ?? ev.date ?? '-' }}
-                </div>
-                <button
-                  @click="toggleExpand(ev)"
-                  class="inline-flex items-center px-2 py-1 bg-yellow-400 text-white rounded-md hover:bg-yellow-500"
-                >
-                  {{ expandedId === ev.id ? 'Close' : 'Modify' }}
-                </button>
-              </div>
+            <!-- custom kategoria input appears only when "egyéb" is selected -->
+            <div v-if="edited.kategoria === 'egyéb'" class="mt-2">
+              <input
+                v-model="customKategoria"
+                placeholder="Egyéb kategória megadása"
+                class="w-full px-3 py-2 border rounded"
+              />
+              <p class="text-xs text-gray-500 mt-1">
+                Az itt megadott érték csak az aktuális eseményhez kerül mentésre, nem lesz opcióként
+                eltárolva.
+              </p>
             </div>
           </div>
 
-          <!-- expandable editor: opens in-place, does not move item -->
-          <transition name="expand">
-            <div v-if="expandedId === ev.id" class="bg-gray-50 p-4 border-t">
-              <form @submit.prevent="submit" class="space-y-3">
-                <!-- make edited bound to the currently-expanded event -->
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block text-sm font-semibold text-gray-700">Név</label>
-                    <input v-model="edited.nev" class="w-full px-3 py-2 border rounded" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-semibold text-gray-700">Kategória</label>
-                    <input v-model="edited.kategoria" class="w-full px-3 py-2 border rounded" />
-                  </div>
-                  <div class="col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700">Datum / Ido</label>
-                    <input v-model="edited.datum_ido" class="w-full px-3 py-2 border rounded" />
-                  </div>
-                </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">Kép (fájl kiválasztása)</label>
+            <input
+              type="file"
+              accept="image/*"
+              @change="onKepChange"
+              class="w-full px-3 py-2 border rounded"
+            />
+            <p class="text-xs text-gray-500 mt-1">
+              A kiválasztott kép fájlneve kerül mentésre az adatbázisba. A kép feltöltése a public
+              mappába külön történik.
+            </p>
+          </div>
 
-                <!-- any other fields remain editable below -->
-                <div v-for="(value, key) in otherFields(edited)" :key="key" class="space-y-1">
-                  <label class="block text-sm font-semibold text-gray-700">{{ key }}</label>
-                  <input v-model="edited[key]" class="w-full px-3 py-2 border rounded" />
-                </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700">Status</label>
+            <!-- removed add-status UI; only select remains -->
+            <select v-model="edited.status" class="w-full px-3 py-2 border rounded">
+              <option v-for="s in statuses" :key="s" :value="s">{{ s }}</option>
+            </select>
+          </div>
 
-                <div class="flex items-center gap-3">
-                  <button
-                    type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                  >
-                    Save
-                  </button>
+          <div class="col-span-2">
+            <label class="block text-sm font-semibold text-gray-700">Dátum / Idő</label>
+            <input
+              type="datetime-local"
+              v-model="edited.datum_ido_local"
+              class="w-full px-3 py-2 border rounded"
+            />
+          </div>
 
-                  <button
-                    type="button"
-                    @click="cancelInline"
-                    class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
-                  >
-                    Cancel
-                  </button>
+          <div class="col-span-2">
+            <label class="block text-sm font-semibold text-gray-700">Description</label>
+            <textarea
+              v-model="edited.description"
+              rows="3"
+              class="w-full px-3 py-2 border rounded"
+            ></textarea>
+          </div>
 
-                  <!-- Delete only visible in modify/expanded mode -->
-                  <button
-                    type="button"
-                    @click="deleteEvent(edited)"
-                    class="ml-auto px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-                  >
-                    Delete
-                  </button>
-                </div>
-              </form>
-            </div>
-          </transition>
+          <div class="col-span-2">
+            <label class="block text-sm font-semibold text-gray-700">Tixa link</label>
+            <input v-model="edited.tixa_link" class="w-full px-3 py-2 border rounded" />
+          </div>
         </div>
-      </div>
-    </section>
 
-    <!-- keep create panel separate and above list if isNew -->
-    <section v-if="isNew" class="mt-6 bg-white p-5 rounded border shadow-sm">
-      <div class="flex items-start justify-between mb-4">
-        <h2 class="text-lg font-medium text-gray-800">
-          {{ isNew ? 'Create event' : 'Edit event #' + (edited.id ?? '') }}
-        </h2>
-
-        <div class="flex items-center gap-2">
-          <span v-if="!isNew" class="text-sm text-gray-500">Editing existing</span>
-          <button @click="cancelEdit" class="text-sm text-gray-500 hover:underline">Close</button>
-        </div>
-      </div>
-
-      <form @submit.prevent="submit" class="space-y-4">
-        <div v-for="(value, key) in edited" :key="key" class="space-y-1">
-          <label :for="key" class="block text-sm font-semibold text-gray-700">{{ key }}</label>
-
-          <textarea
-            v-if="isLongField(key)"
-            :id="key"
-            v-model="edited[key]"
-            rows="3"
-            class="w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
-          ></textarea>
-
-          <input
-            v-else
-            :id="key"
-            v-model="edited[key]"
-            class="w-full px-3 py-2 border rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
-          />
+        <!-- other dynamic fields -->
+        <div v-for="(value, key) in otherFields(edited)" :key="key" class="space-y-1">
+          <label class="block text-sm font-semibold text-gray-700">{{ key }}</label>
+          <input v-model="edited[key]" class="w-full px-3 py-2 border rounded" />
         </div>
 
         <div class="flex gap-2 items-center">
@@ -169,9 +118,8 @@
 
         <div class="flex items-center gap-3">
           <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-            {{ isNew ? 'Create' : 'Save' }}
+            Create
           </button>
-
           <button
             type="button"
             @click="cancelEdit"
@@ -179,18 +127,180 @@
           >
             Cancel
           </button>
-
-          <!-- Delete only visible in modify mode -->
-          <button
-            v-if="!isNew"
-            type="button"
-            @click="deleteEvent(edited)"
-            class="ml-auto px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-          >
-            Delete
-          </button>
         </div>
       </form>
+    </section>
+
+    <section v-if="loading" class="text-gray-600">Loading events...</section>
+
+    <section v-else>
+      <!-- changed to 4 columns: Név | Kategória | Dátum / Idő | Művelet -->
+      <div class="grid grid-cols-4 gap-4 text-sm text-gray-500 font-medium px-3 py-2 border-b">
+        <div>Név</div>
+        <div>Kategória</div>
+        <div class="text-right">Dátum / Idő</div>
+        <div class="text-right">Művelet</div>
+      </div>
+
+      <div class="space-y-2 mt-2">
+        <div
+          v-for="ev in events"
+          :key="ev.id"
+          class="rounded overflow-hidden border transition-shadow"
+          :class="[
+            expandedId === ev.id ? 'shadow-md' : '',
+            ev.id === newEventId ? 'bg-green-50 border-green-300' : '',
+          ]"
+          :style="categoryRowStyle(ev.kategoria)"
+        >
+          <!-- row now has 4 columns (name, category, date, actions) -->
+          <div class="grid grid-cols-4 gap-4 items-center bg-white p-3">
+            <div class="text-sm text-gray-800 truncate">{{ ev.nev ?? '-' }}</div>
+            <div class="text-sm text-gray-700 font-medium">{{ ev.kategoria ?? '-' }}</div>
+            <div class="text-right text-sm text-gray-600">
+              {{ formatDate(ev.datum_ido) }}
+            </div>
+            <div class="text-right">
+              <button
+                @click="toggleExpand(ev)"
+                class="inline-flex items-center px-2 py-1 bg-yellow-400 text-white rounded-md hover:bg-yellow-500"
+              >
+                {{ expandedId === ev.id ? 'Close' : 'Modify' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- inline editor -->
+          <transition name="expand">
+            <div v-if="expandedId === ev.id" class="bg-gray-50 p-4 border-t">
+              <form @submit.prevent="submit" class="space-y-3">
+                <!-- fixed fields for editing -->
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-sm font-semibold text-gray-700">Név</label>
+                    <input v-model="edited.nev" class="w-full px-3 py-2 border rounded" />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-gray-700">Kategória</label>
+                    <div class="flex gap-2">
+                      <select v-model="edited.kategoria" class="w-full px-3 py-2 border rounded">
+                        <option v-for="opt in kategoriak" :key="opt" :value="opt">{{ opt }}</option>
+                      </select>
+
+                      <!-- add-new-option UI (keeps kategoriak list editable) -->
+                      <input
+                        v-model="newKategoriOption"
+                        placeholder="Új opció"
+                        class="px-2 py-1 border rounded w-28"
+                      />
+                      <button
+                        type="button"
+                        @click="addKategoriOption"
+                        class="px-2 py-1 bg-gray-200 rounded"
+                      >
+                        Add
+                      </button>
+                    </div>
+
+                    <!-- custom kategoria input appears only when "egyéb" is selected -->
+                    <div v-if="edited.kategoria === 'egyéb'" class="mt-2">
+                      <input
+                        v-model="customKategoria"
+                        placeholder="Egyéb kategória megadása"
+                        class="w-full px-3 py-2 border rounded"
+                      />
+                      <p class="text-xs text-gray-500 mt-1">
+                        Az itt megadott érték csak az aktuális eseményhez kerül mentésre, nem lesz
+                        opcióként eltárolva.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700"
+                      >Kép (fájl kiválasztása)</label
+                    >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      @change="onKepChange"
+                      class="w-full px-3 py-2 border rounded"
+                    />
+                    <p class="text-xs text-gray-500 mt-1">
+                      A kiválasztott kép fájlneve kerül mentésre az adatbázisba. A kép feltöltése a
+                      public mappába külön történik.
+                    </p>
+                  </div>
+
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700">Dátum / Idő</label>
+                    <input
+                      type="datetime-local"
+                      v-model="edited.datum_ido_local"
+                      class="w-full px-3 py-2 border rounded"
+                    />
+                  </div>
+
+                  <div class="col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700">Description</label>
+                    <textarea
+                      v-model="edited.description"
+                      rows="3"
+                      class="w-full px-3 py-2 border rounded"
+                    ></textarea>
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-gray-700">Tixa link</label>
+                    <input v-model="edited.tixa_link" class="w-full px-3 py-2 border rounded" />
+                  </div>
+
+                  <div>
+                    <label class="block text-sm font-semibold text-gray-700">Status</label>
+                    <div class="flex gap-2">
+                      <select v-model="edited.status" class="w-full px-3 py-2 border rounded">
+                        <option v-for="s in statuses" :key="s" :value="s">{{ s }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- other dynamic fields -->
+                <div v-for="(value, key) in otherFields(edited)" :key="key" class="space-y-1">
+                  <label class="block text-sm font-semibold text-gray-700">{{ key }}</label>
+                  <input v-model="edited[key]" class="w-full px-3 py-2 border rounded" />
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <button
+                    type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  >
+                    Save
+                  </button>
+
+                  <button
+                    type="button"
+                    @click="cancelInline"
+                    class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    type="button"
+                    @click="deleteEvent(edited.id)"
+                    class="ml-auto px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </form>
+            </div>
+          </transition>
+        </div>
+      </div>
     </section>
 
     <section v-if="error" class="mt-4 text-sm text-red-600">{{ error }}</section>
@@ -206,92 +316,130 @@ const events = ref([])
 const loading = ref(false)
 const error = ref('')
 const info = ref('')
-
-const expandedId = ref(null) // id of the expanded/modified row (keeps item in place)
+const expandedId = ref(null)
 const isNew = ref(false)
 const edited = reactive({})
 const newFieldKey = ref('')
 const newFieldValue = ref('')
 
-// helper: when opening inline editor, populate edited with a shallow copy
-function toggleExpand(ev) {
-  if (expandedId.value === ev.id) {
-    // closing
-    cancelInline()
-    return
+// new: store id of last created event (highlight until full page refresh)
+const newEventId = ref(null)
+
+// dropdown option lists and new-option inputs
+const kategoriak = ref(['Koncert', 'Dj Night', 'Party', 'egyéb'])
+const statuses = ref(['active', 'invisible', 'cancelled'])
+const newKategoriOption = ref('')
+// removed newStatusOption and addStatusOption state
+
+// new: custom input used only when 'egyéb' selected (not saved into kategoriak)
+const customKategoria = ref('')
+
+async function loadEvents() {
+  loading.value = true
+  try {
+    events.value = await eventsApi.getEvents()
+  } catch (e) {
+    error.value = e.message
+  } finally {
+    loading.value = false
   }
+}
+
+function addKategoriOption() {
+  const v = (newKategoriOption.value || '').trim()
+  if (!v) return
+  if (!kategoriak.value.includes(v)) kategoriak.value.push(v)
+  newKategoriOption.value = ''
+}
+
+/* remove addStatusOption function and any references */
+
+function toggleExpand(ev) {
+  if (expandedId.value === ev.id) return cancelInline()
   expandedId.value = ev.id
   isNew.value = false
   Object.keys(edited).forEach((k) => delete edited[k])
-  for (const k in ev) edited[k] = ev[k]
-  newFieldKey.value = ''
-  newFieldValue.value = ''
-  info.value = ''
-  error.value = ''
+  Object.assign(edited, ev)
+  // coerce id to a number if present
+  if (edited.id !== undefined && edited.id !== null) {
+    const n = Number(edited.id)
+    if (!Number.isNaN(n)) edited.id = n
+  }
+  // populate local datetime value for the datetime-local input
+  edited.datum_ido_local = ev.datum_ido ? toInputDatetime(ev.datum_ido) : ''
+  edited.kep = edited.kep ?? ''
+  edited.description = edited.description ?? ''
+  edited.tixa_link = edited.tixa_link ?? ''
+  // if ev.kategoria is one of the known options, use it; otherwise select 'egyéb' and put the value into customKategoria
+  if (ev.kategoria && kategoriak.value.includes(ev.kategoria)) {
+    edited.kategoria = ev.kategoria
+    customKategoria.value = ''
+  } else if (ev.kategoria) {
+    edited.kategoria = 'egyéb'
+    customKategoria.value = ev.kategoria
+  } else {
+    edited.kategoria = kategoriak.value[0]
+    customKategoria.value = ''
+  }
+  edited.status = edited.status ?? statuses.value[0]
 }
 
 function cancelInline() {
   expandedId.value = null
   Object.keys(edited).forEach((k) => delete edited[k])
-  newFieldKey.value = ''
-  newFieldValue.value = ''
 }
 
-// only show keys other than the three main ones
 function otherFields(obj) {
   const out = {}
   for (const k in obj) {
-    if (k === 'nev' || k === 'kategoria' || k === 'datum_ido' || k === 'id') continue
+    if (
+      [
+        'id',
+        'nev',
+        'kategoria',
+        'datum_ido',
+        'datum_ido_local',
+        'kep',
+        'description',
+        'tixa_link',
+        'status',
+      ].includes(k)
+    )
+      continue
     out[k] = obj[k]
   }
   return out
 }
 
-// category coloring: subtle bg + colored left border
-function categoryRowStyle(cat) {
-  const c = String(cat ?? '').trim()
-  const h = hashHue(c)
-  // subtle background with light alpha and a stronger left border
-  return {
-    backgroundColor: `hsla(${h}, 70%, 95%, 0.7)`,
-    borderLeft: `6px solid hsla(${h}, 70%, 45%, 0.9)`,
-  }
-}
 function hashHue(s) {
   let h = 0
   for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) % 360
   return h
 }
 
-async function loadEvents() {
-  loading.value = true
-  error.value = ''
-  info.value = ''
-  try {
-    const data = await eventsApi.getEvents()
-    events.value = Array.isArray(data) ? data : []
-  } catch (e) {
-    console.error(e)
-    error.value = e.message || 'Failed to load events'
-  } finally {
-    loading.value = false
+function categoryRowStyle(cat) {
+  const h = hashHue(String(cat ?? ''))
+  return {
+    backgroundColor: `hsla(${h}, 70%, 95%, 0.7)`,
+    borderLeft: `6px solid hsla(${h}, 70%, 45%, 0.9)`,
   }
 }
 
-function selectForEdit(ev) {
-  // kept for backward compatibility: open inline editor for this event
-  toggleExpand(ev)
-}
-
 function startCreate() {
-  // open the create panel (separate from inline expanded rows)
   expandedId.value = null
   isNew.value = true
+  // clear previous edited state to avoid reusing an id
   Object.keys(edited).forEach((k) => delete edited[k])
   // default keys expected by your UI
   edited.nev = ''
-  edited.kategoria = ''
+  edited.kategoria = kategoriak.value[0]
+  customKategoria.value = ''
+  edited.kep = ''
   edited.datum_ido = ''
+  edited.datum_ido_local = ''
+  edited.description = ''
+  edited.tixa_link = ''
+  edited.status = statuses.value[0]
   newFieldKey.value = ''
   newFieldValue.value = ''
   info.value = ''
@@ -299,19 +447,48 @@ function startCreate() {
 }
 
 function cancelEdit() {
-  // cancel create panel
   isNew.value = false
   Object.keys(edited).forEach((k) => delete edited[k])
+}
+
+function addField() {
+  if (!newFieldKey.value) return
+  edited[newFieldKey.value] = newFieldValue.value
   newFieldKey.value = ''
   newFieldValue.value = ''
 }
 
-function addField() {
-  const key = (newFieldKey.value || '').trim()
-  if (!key) return
-  edited[key] = newFieldValue.value
-  newFieldKey.value = ''
-  newFieldValue.value = ''
+function isLongField(key) {
+  return ['leiras', 'description', 'content', 'notes'].includes(String(key || '').toLowerCase())
+}
+
+/* new: date helpers to map between stored ISO and input value */
+function toInputDatetime(iso) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return ''
+  // produce yyyy-MM-ddTHH:mm
+  const pad = (n) => String(n).padStart(2, '0')
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`
+}
+function fromInputDatetime(val) {
+  if (!val) return ''
+  const d = new Date(val)
+  return Number.isNaN(d.getTime()) ? val : d.toISOString()
+}
+
+/* new: date formatter used in template */
+function formatDate(dateString) {
+  if (!dateString) return '-'
+  const d = new Date(dateString)
+  if (Number.isNaN(d.getTime())) return '-'
+  return d.toLocaleString('hu-HU', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  })
 }
 
 async function submit() {
@@ -319,39 +496,94 @@ async function submit() {
   info.value = ''
   try {
     if (isNew.value) {
-      await eventsApi.createEvent(edited)
+      // compute next numeric id (max existing id + 1)
+      const maxId = events.value.reduce((m, x) => {
+        const n = Number(x?.id)
+        return Number.isFinite(n) ? Math.max(m, n) : m
+      }, 0)
+      const nextId = maxId + 1
+      const payload = { ...edited }
+      // ensure numeric id
+      payload.id = nextId
+      // map local datetime to ISO
+      if (payload.datum_ido_local) payload.datum_ido = fromInputDatetime(payload.datum_ido_local)
+      delete payload.datum_ido_local
+      // kategoria handling for 'egyéb'
+      if (payload.kategoria === 'egyéb') {
+        payload.kategoria = (customKategoria.value || 'egyéb').trim()
+      }
+      const created = await eventsApi.createEvent(payload)
+      // determine created id (server may return id)
+      const createdId = Number(created?.id ?? nextId)
+      if (!Number.isNaN(createdId)) newEventId.value = createdId
       info.value = 'Event created'
+      alert(`Sikeres létrehozás${created?.id ? ` (#${created.id})` : ''}.`)
     } else {
-      if (!edited.id) throw new Error('No id on event to update')
-      await eventsApi.updateEvent(edited.id, edited)
-      info.value = 'Event updated'
+      if (edited.id === undefined || edited.id === null) throw new Error('No id on event to update')
+      const idNum = Number(edited.id)
+      if (Number.isNaN(idNum)) throw new Error('Invalid numeric id')
+
+      const payload = { ...edited }
+      if (payload.datum_ido_local) payload.datum_ido = fromInputDatetime(payload.datum_ido_local)
+      delete payload.datum_ido_local
+      // kategoria handling for 'egyéb'
+      if (payload.kategoria === 'egyéb') {
+        payload.kategoria = (customKategoria.value || 'egyéb').trim()
+      }
+
+      try {
+        // try updating first (PUT) — do not fallback to creating on 404
+        const updated = await eventsApi.updateEvent(idNum, { ...payload, id: idNum })
+        info.value = 'Event updated'
+        alert(`Sikeres frissítés${updated?.id ? ` (#${updated.id})` : ''}.`)
+      } catch (e) {
+        const msg = String(e?.message || e)
+        if (msg.includes('404')) {
+          error.value = 'Update failed: resource not found on server (404).'
+          alert(`Frissítés sikertelen: az esemény nem található a szerveren (404).`)
+        } else {
+          throw e
+        }
+      }
     }
+
     await loadEvents()
     // reset UI
     expandedId.value = null
     isNew.value = false
+    // clear edited
     Object.keys(edited).forEach((k) => delete edited[k])
+    customKategoria.value = ''
   } catch (e) {
     console.error(e)
     error.value = e.message || 'Save failed'
+    alert(`Mentés sikertelen: ${error.value}`)
   }
 }
 
-async function deleteEvent(ev) {
-  if (!confirm('Delete event #' + ev.id + ' ?')) return
-  error.value = ''
-  info.value = ''
+async function deleteEvent(id) {
+  if (!confirm(`Biztosan törli az eseményt (#${id})?`)) return
   try {
-    await eventsApi.deleteEvent(ev.id)
-    info.value = 'Event deleted'
+    await eventsApi.deleteEvent(id)
+    info.value = 'Esemény törölve.'
+    alert('Sikeres törlés.')
     await loadEvents()
-    // close any open editor for that item
-    if (expandedId.value === ev.id) expandedId.value = null
-    isNew.value = false
-    Object.keys(edited).forEach((k) => delete edited[k])
   } catch (e) {
-    console.error(e)
-    error.value = e.message || 'Delete failed'
+    error.value = e.message || 'Törlés sikertelen.'
+    alert(`Törlés sikertelen: ${error.value}`)
+  }
+}
+
+// updated: upload file to public folder and set filename in db
+async function onKepChange(event) {
+  const file = event.target.files[0]
+  if (file) {
+    try {
+      const filename = await eventsApi.uploadImage(file)
+      edited.kep = filename // save uploaded filename to db
+    } catch (e) {
+      alert('Kép feltöltése sikertelen: ' + e.message)
+    }
   }
 }
 
@@ -359,7 +591,6 @@ onMounted(loadEvents)
 </script>
 
 <style scoped>
-/* small expand/collapse animation */
 .expand-enter-from,
 .expand-leave-to {
   max-height: 0;
@@ -376,7 +607,11 @@ onMounted(loadEvents)
 .expand-leave-active {
   transition: all 220ms ease;
 }
-.admin-events {
-  /* Tailwind covers most styling; keep this only for safety */
+/* small highlight tweak when newEventId matches */
+.bg-green-50 {
+  background-color: rgba(220, 253, 231, 1);
+}
+.border-green-300 {
+  border-color: rgba(134, 239, 172, 1);
 }
 </style>
