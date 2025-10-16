@@ -503,8 +503,8 @@ async function submit() {
       }, 0)
       const nextId = maxId + 1
       const payload = { ...edited }
-      // ensure numeric id
-      payload.id = nextId
+      // ensure STRING id
+      payload.id = String(nextId)
       // map local datetime to ISO
       if (payload.datum_ido_local) payload.datum_ido = fromInputDatetime(payload.datum_ido_local)
       delete payload.datum_ido_local
