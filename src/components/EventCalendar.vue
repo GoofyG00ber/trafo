@@ -6,7 +6,10 @@
         <h2 class="text-xl font-bold">{{ monthTitle }}</h2>
         <button class="nav" @click="goToMonth(1)">›</button>
       </div>
-      <div class="text-sm text-gray-600">Events: {{ events.length }}</div>
+      <span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#8b1a1a' }"></span><span class="text-sm text-gray-600 mr-3">Koncert</span>
+      <span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#7c2bdc' }"></span><span class="text-sm text-gray-600 mr-3">Buli</span>
+      <span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#0ea5a4' }"></span><span class="text-sm text-gray-600 mr-3">Egyéb</span>
+      <div class="text-sm text-gray-600">Programok: {{ events.length }}</div>
     </header>
 
     <div class="grid grid-cols-7 gap-1 text-sm">
@@ -33,7 +36,7 @@
             @click="openEvent(ev)"
             title="{{ ev.nev || ev.title }}"
           >
-            <div class="event-label">{{ ev.kategoria || ev.kategoria_name || ev.type }}</div>
+            <!--<div class="event-label">{{ ev.kategoria || ev.kategoria_name || ev.type }}</div>-->
             <div class="event-title">{{ ev.nev || ev.title }}</div>
             <div class="chev">›</div>
           </div>
