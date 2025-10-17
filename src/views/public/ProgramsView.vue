@@ -51,16 +51,14 @@ onBeforeUnmount(() => {
 <template>
   <div class="max-w-4xl mx-auto p-4">
     <div class="flex items-center justify-between mb-4">
-      <div class="text-lg font-semibold">Programs</div>
-
       <!-- Toggle buttons -->
       <div class="flex items-center space-x-2">
         <button
           type="button"
           @click="setView('list')"
           :class="[
-            'inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none',
-            viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800',
+            'relative overflow-hidden inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none',
+            viewMode === 'list' ? 'text-white' : 'text-gray-500 hover:scale-105 transition-all duration-200 hover:bg-animate-gray',
           ]"
           :aria-pressed="viewMode === 'list'"
           title="Lista nézet"
@@ -83,8 +81,8 @@ onBeforeUnmount(() => {
           type="button"
           @click="setView('calendar')"
           :class="[
-            'inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none',
-            viewMode === 'calendar' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800',
+            'relative overflow-hidden inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none',
+            viewMode === 'calendar' ? 'text-white' : 'text-gray-500 hover:scale-105 transition-all duration-200 hover:bg-animate-gray',
           ]"
           :aria-pressed="viewMode === 'calendar'"
           title="Naptár nézet"
@@ -126,4 +124,23 @@ onBeforeUnmount(() => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+/* animált háttér sáv */
+.hover\:bg-animate-gray::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* mennyit fedjen le */
+  height: 100%;
+  background-color: rgba(128, 128, 128, 0.25);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s ease;
+  z-index: 0;
+}
+
+.hover\:bg-animate-gray:hover::before {
+  transform: scaleX(1);
+}
+</style>

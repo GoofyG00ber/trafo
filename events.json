@@ -1,7 +1,7 @@
 {
   "events": [
     {
-      "id": 1,
+      "id": "1",
       "kategoria": "Koncert",
       "nev": "Tankcsapda – Élő Show",
       "kep": "placeholder.jpg",
@@ -11,7 +11,7 @@
       "status": "active"
     },
     {
-      "id": 2,
+      "id": "2",
       "kategoria": "Party",
       "nev": "Punnany Massif – Klubest",
       "kep": "placeholder.png",
@@ -21,7 +21,7 @@
       "status": "active"
     },
     {
-      "id": 3,
+      "id": "3",
       "kategoria": "Koncert",
       "nev": "Halott Pénz – Aréna Tour",
       "kep": "placeholder.png",
@@ -31,7 +31,7 @@
       "status": "active"
     },
     {
-      "id": 4,
+      "id": "4",
       "kategoria": "DJ Night",
       "nev": "Bricklake & Sterbinszky – Retro Rave",
       "kep": "placeholder.png",
@@ -41,7 +41,7 @@
       "status": "active"
     },
     {
-      "id": 5,
+      "id": "5",
       "kategoria": "Koncert",
       "nev": "Bagossy Brothers Company – Ünnepi Turné",
       "kep": "placeholder.png",
@@ -51,7 +51,7 @@
       "status": "active"
     },
     {
-      "id": 6,
+      "id": "6",
       "kategoria": "Party",
       "nev": "Follow The Flow – After Party",
       "kep": "placeholder.png",
@@ -61,7 +61,7 @@
       "status": "invisible"
     },
     {
-      "id": 7,
+      "id": "7",
       "kategoria": "Koncert",
       "nev": "ROAD – Téli Turné",
       "kep": "placeholder.png",
@@ -71,7 +71,7 @@
       "status": "active"
     },
     {
-      "id": 8,
+      "id": "8",
       "kategoria": "DJ Night",
       "nev": "Julia Carpenter – Electro Winter",
       "kep": "placeholder.png",
@@ -81,7 +81,7 @@
       "status": "active"
     },
     {
-      "id": 9,
+      "id": "9",
       "kategoria": "Koncert",
       "nev": "ByeAlex és a Slepp – Akusztik Est",
       "kep": "placeholder.png",
@@ -91,7 +91,7 @@
       "status": "active"
     },
     {
-      "id": 10,
+      "id": "10",
       "kategoria": "Party",
       "nev": "ValMar – Pop Night",
       "kep": "placeholder.png",
@@ -101,7 +101,7 @@
       "status": "active"
     },
     {
-      "id": 11,
+      "id": "11",
       "kategoria": "Koncert",
       "nev": "Kowalsky meg a Vega – Téli Fesztivál",
       "kep": "placeholder.png",
@@ -111,7 +111,7 @@
       "status": "active"
     },
     {
-      "id": 12,
+      "id": "12",
       "kategoria": "DJ Night",
       "nev": "Newik – Tech House Session",
       "kep": "placeholder.png",
@@ -121,7 +121,7 @@
       "status": "invisible"
     },
     {
-      "id": 13,
+      "id": "13",
       "kategoria": "Koncert",
       "nev": "Anna and the Barbies – Akusztik",
       "kep": "placeholder.png",
@@ -131,7 +131,7 @@
       "status": "active"
     },
     {
-      "id": 14,
+      "id": "14",
       "kategoria": "Party",
       "nev": "Carson Coma – Indie Night",
       "kep": "placeholder.png",
@@ -141,7 +141,7 @@
       "status": "cancelled"
     },
     {
-      "id": 15,
+      "id": "15",
       "kategoria": "DJ Night",
       "nev": "Willcox – Sunset Beats",
       "kep": "placeholder.png",
@@ -151,7 +151,7 @@
       "status": "active"
     },
     {
-      "id": 16,
+      "id": "16",
       "kategoria": "Koncert",
       "nev": "Majka & Curtis – Aréna Show",
       "kep": "placeholder.png",
@@ -161,7 +161,7 @@
       "status": "active"
     },
     {
-      "id": 17,
+      "id": "17",
       "kategoria": "Party",
       "nev": "Blahalouisiana – Pop Session",
       "kep": "placeholder.png",
@@ -171,7 +171,7 @@
       "status": "invisible"
     },
     {
-      "id": 18,
+      "id": "18",
       "kategoria": "Koncert",
       "nev": "Hiperkarma – Tavaszi Turné",
       "kep": "placeholder.png",
@@ -181,7 +181,7 @@
       "status": "active"
     },
     {
-      "id": 19,
+      "id": "19",
       "kategoria": "DJ Night",
       "nev": "Metzker Viktória – Summer Warmup",
       "kep": "placeholder.png",
@@ -191,33 +191,13 @@
       "status": "active"
     },
     {
-      "id": 20,
+      "id": "20",
       "kategoria": "Koncert",
       "nev": "Auróra – Punk Night",
       "kep": "placeholder.png",
       "datum_ido": "2026-04-19T20:00:00",
       "description": "A legendás Auróra punk banda visszatér! Zúzós riffek, lendület, és igazi magyar punk hangulat.",
       "tixa_link": "https://tixa.hu/aurora2026",
-      "status": "active"
-    },
-    {
-      "id": 21,
-      "kategoria": "Koncert",
-      "nev": "Tankcsapda – Élő Show2",
-      "kep": "placeholder.jpg",
-      "datum_ido": "2025-11-15T20:00:00",
-      "description": "A legendás Tankcsapda visszatér Budapestre egy fergeteges élő rock koncerttel. Klasszikusok és új dalok egy este!",
-      "tixa_link": "https://tixa.hu/tankcsapda2025",
-      "status": "active"
-    },
-    {
-      "id": 22,
-      "nev": "yessirski",
-      "kategoria": "sigma",
-      "kep": "1760438716985-533987005.jpg",
-      "datum_ido": "2025-10-15T12:45:00.000Z",
-      "description": "asd",
-      "tixa_link": "",
       "status": "active"
     }
   ]

@@ -2,59 +2,57 @@
   <div class="event-list max-w-6xl mx-auto p-6">
     <!-- Filters: search and date range -->
     <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
-      <input
-        v-model="query"
-        type="search"
-        placeholder="Keresés (név, leírás, hely, kategória... )"
-        class="flex-1 px-3 py-2 border rounded bg-white"
-        aria-label="Keresés események között"
-      />
-
-      <div class="w-48">
-        <select v-model="category" class="w-full px-2 py-2 border rounded bg-white">
-          <option value="">Összes kategória</option>
-          <option v-for="c in categoryOptions" :key="c" :value="c">{{ c }}</option>
-        </select>
+      <div class="relative flex-1 min-w-[200px]">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+        </span>
+        <input
+          v-model="query"
+          type="search"
+          placeholder="Keresés (név, leírás, hely, kategória...)"
+          class="w-full bg-[#2a2a2a] text-gray-200 placeholder-gray-500 pl-9 pr-3 py-2 rounded-md border border-transparent focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none transition"
+          aria-label="Keresés események között"
+        />
       </div>
-
-      <div class="flex items-center gap-2">
-        <div class="flex items-center gap-2 border rounded bg-white px-2 py-1">
+      <div class="sm:w-auto">
+        <div class="flex items-center gap-1 border border-transparent rounded-md bg-[#2a2a2a] px-1 py-1 focus-within:border-red-600 transition">
           <input
             v-model="startDate"
             type="date"
-            class="px-2 py-1 bg-transparent outline-none"
+            class="px-1 py-1 bg-transparent text-gray-200 outline-none"
             aria-label="Kezdő dátum"
           />
           <span class="text-gray-500">—</span>
           <input
             v-model="endDate"
             type="date"
-            class="px-2 py-1 bg-transparent outline-none"
+            class="px-1 py-1 bg-transparent text-gray-200 outline-none"
             aria-label="Vég dátum"
           />
         </div>
       </div>
-
       <button
         type="button"
         @click="clearFilters"
         :class="[
-          'px-3 py-2 rounded ml-auto inline-flex items-center justify-center focus:outline-none',
-          filtersActive ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-800',
+          'px-3 py-2 rounded-md inline-flex items-center justify-center transition focus:outline-none',
+          filtersActive ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-[#2a2a2a] text-gray-400 hover:text-white',
         ]"
         aria-label="Szűrők törlése"
         title="Szűrők törlése"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="w-5 h-5"
-          viewBox="0 0 24 24"
+          class="w-6 h-6"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
+          viewBox="0 0 24 24"
         >
-          <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-linecap="round" />
-          <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-linecap="round" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
