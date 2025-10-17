@@ -1,39 +1,72 @@
 <template>
-  <div class="hero">
-    <div v-if="upcomingEvents.length" class="events">
-      <h2>Közelgő események</h2>
+<!-- SVG filter for squiggly effect -->
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    height="0"
+    width="0"
+>
+    <defs>
+        <filter id="squiggle">
+            <feTurbulence
+                type="fractalNoise"
+                id="turbulence"
+                baseFrequency=".50"
+                numOctaves="4"
+            />
+            <feDisplacementMap
+                id="displacement"
+                in="SourceGraphic"
+                scale="4"
+            />
+        </filter>
+    </defs>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="0" height="0" opacity="1"><defs><filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB">
+	<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"></feTurbulence>
+	<feSpecularLighting surfaceScale="40" specularConstant="0.5" specularExponent="20" lighting-color="#aaaaaa" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting">
+    		<feDistantLight azimuth="3" elevation="40"></feDistantLight>
+  	</feSpecularLighting>
+  
+</filter></defs></svg>
 
-      <div class="carousel" @mouseenter="paused = true" @mouseleave="paused = false">
-        <button @click="prev(true)" class="nav prev" aria-label="Previous slide">‹</button>
+  <div class="px-6">
+    <div class="hero mx-auto my-6 h-96 max-w-7xl">
+      <div v-if="upcomingEvents.length" class="relative events h-full w-full flex flex-col justify-center items-center">
+        <div class="absolute inset-0 -z-10 bg-neutral-900 squiggle shadow-lg"></div>
+        <div class="absolute inset-0 -z-9  noise"></div>
+        <div class="carousel" @mouseenter="paused = true" @mouseleave="paused = false">
+          <button @click="prev(true)" class="nav prev rubik-dirt-regular  text-7xl" aria-label="Previous slide">‹</button>
 
-        <ul class="event-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-          <li v-for="(event, i) in upcomingEvents" :key="event.id" class="event-item">
-            <img :src="event.kep" alt="event" />
-            <div>
-              <h3>{{ event.nev }}</h3>
-              <p>{{ formatDate(event.datum_ido) }}</p>
-              <p>{{ event.kategoria }}</p>
-            </div>
-          </li>
-        </ul>
+          <ul class="event-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+            <li v-for="(event, i) in upcomingEvents" :key="event.id" class="event-item">
+              <img :src="event.kep" alt="event" class="absolute z-0 w-sm min-h-sm"/>
+              <div class="relative z-10">
+                <h3 class="rowdies-regular text-white text-4xl tracking-wider object-center">{{ event.nev }}</h3>
+                <p class="rowdies-light text-red-700 text-2xl">{{ formatDate(event.datum_ido) }}</p>
+                <p class="rowdies-light text-white">{{ event.kategoria }}</p>
+              </div>
+            </li>
+          </ul>
 
-        <button @click="next(true)" class="nav next" aria-label="Next slide">›</button>
+          <button @click="next(true)" class="nav next rubik-dirt-regular  text-7xl" aria-label="Next slide">›</button>
+        </div>
+        <div v-if="upcomingEvents.length > 1" class="mt-4 flex justify-center gap-2">
+          <button
+            v-for="(e, i) in upcomingEvents"
+            :key="e.id || i"
+            @click="goTo(i, true)"
+            :aria-label="`Go to slide ${i + 1}`"
+            :class="[
+              'w-3 h-3 rounded-full transition-colors',
+              currentIndex === i ? 'bg-red-600' : 'bg-gray-300',
+              'cursor-pointer',
+            ]"
+          ></button>
+        </div>
       </div>
-      <div v-if="upcomingEvents.length > 1" class="mt-4 flex justify-center gap-2">
-        <button
-          v-for="(e, i) in upcomingEvents"
-          :key="e.id || i"
-          @click="goTo(i, true)"
-          :aria-label="`Go to slide ${i + 1}`"
-          :class="[
-            'w-3 h-3 rounded-full transition-colors',
-            currentIndex === i ? 'bg-red-600' : 'bg-gray-300',
-            'cursor-pointer',
-          ]"
-        ></button>
-      </div>
+      <div v-else>Jelenleg nincs közelgő esemény.</div>
     </div>
-    <div v-else>Jelenleg nincs közelgő esemény.</div>
   </div>
 </template>
 
@@ -117,8 +150,10 @@ function formatDate(dateString) {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Belanosima:wght@400;600;700&family=Rowdies:wght@300;400;700&family=Rubik+Dirt&display=swap');
+
 .hero {
-  margin: 4rem auto;
+  /*margin: 4rem auto;
   width: 80%;
   max-width: 900px;
   min-height: 180px;
@@ -127,7 +162,7 @@ function formatDate(dateString) {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   padding: 2rem;
-  text-align: center;
+  text-align: center;*/
 }
 
 .events h2 {
@@ -162,8 +197,8 @@ function formatDate(dateString) {
 }
 
 .event-item img {
-  width: 80px;
-  height: 80px;
+  /*width: 80px;
+  height: 80px;*/
   border-radius: 8px;
   object-fit: cover;
   background: #fdd;
@@ -176,7 +211,6 @@ function formatDate(dateString) {
   background: transparent;
   color: #b22222;
   border: none;
-  font-size: 2rem;
   padding: 0.5rem 0.9rem;
   border-radius: 9999px;
   cursor: pointer;
@@ -197,5 +231,54 @@ function formatDate(dateString) {
 
 .next {
   right: 10px;
+}
+
+.rowdies-light {
+  font-family: "Rowdies", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.rowdies-regular {
+  font-family: "Rowdies", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rowdies-bold {
+  font-family: "Rowdies", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.belanosima-regular {
+  font-family: "Belanosima", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.belanosima-semibold {
+  font-family: "Belanosima", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.belanosima-bold {
+  font-family: "Belanosima", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.rubik-dirt-regular {
+  font-family: "Rubik Dirt", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.squiggle {
+    filter: url(#squiggle);
+}
+.noise{
+    filter: url(#nnnoise-filter);
 }
 </style>
