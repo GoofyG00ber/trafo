@@ -52,7 +52,7 @@ function saveContent() {
 <template>
   <div class="p-4">
     <div class="flex items-center justify-between mb-3">
-      <h2 class="text-lg font-semibold">Adatkezelési tájékoztató szerkesztő</h2>
+      <h2 class="text-lg font-semibold">Házirend szerkesztő</h2>
       <div>
         <button @click="saveContent" class="px-3 py-1 bg-blue-600 text-white rounded">
           Mentés

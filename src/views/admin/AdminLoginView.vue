@@ -1,17 +1,17 @@
 <template>
   <div class="admin-login">
     <div class="card">
-      <h1>Admin login</h1>
+      <h1>Admin belépés</h1>
       <form @submit.prevent="submit">
         <label>
-          Password
+          Jelszó
           <input v-model="password" type="password" autocomplete="current-password" />
         </label>
         <label class="keep">
-          <input type="checkbox" v-model="keep" /> Keep me logged in
+          <input type="checkbox" v-model="keep" /> Maradjon bejelentkezve
         </label>
         <div class="actions">
-          <button type="submit">Sign in</button>
+          <button type="submit">Bejelentkezés</button>
         </div>
         <p v-if="error" class="error">{{ error }}</p>
       </form>
