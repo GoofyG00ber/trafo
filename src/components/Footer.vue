@@ -24,7 +24,7 @@
       </div>
       <div class="footer-info">
         <p><b>Nyitvatartás</b></p>
-        <table>
+        <table class="small">
           <tbody>
             <tr>
               <td>Hétfő</td>
@@ -78,9 +78,9 @@ import MapView from '@/components/MapView.vue'
 
 <style scoped>
 .footer {
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #3f3f3fff;
   padding: 1rem 0;
-  background: var(--bg, #d4bebe);
+  background: var(--bg, #121212);
   display: flex;
   gap: 5px;
   flex-direction: column;
@@ -92,7 +92,6 @@ import MapView from '@/components/MapView.vue'
 
 .footer-top h3 {
   margin-bottom: 10px;
-  color: #444;
 }
 
 .supporters {
@@ -117,7 +116,7 @@ import MapView from '@/components/MapView.vue'
 
 .divider {
   border: none;
-  border-top: 2px solid #ddd;
+  border-top: 1px solid #3f3f3fff;
   margin: 10px 0;
 }
 
@@ -145,12 +144,12 @@ import MapView from '@/components/MapView.vue'
 
 .footer-info p {
   margin: 4px 0;
-  color: #333;
+  color: #f7f7f7ff;
 }
 
 .footer-info .small {
   font-size: 0.9rem;
-  color: #555;
+  color: #b9b9b9ff;
 }
 
 .container {

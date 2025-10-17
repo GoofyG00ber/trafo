@@ -1,11 +1,11 @@
 <template>
-  <nav class="nav">
+  <nav class="nav flex justify-center gap-8 bg-[#111] py-3 text-sm font-montserrat uppercase tracking-wide shadow-md shadow-black/50">
     <div class="container">
       <router-link to="/" class="logo">Trafo</router-link>
       <ul class="links">
-        <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/programs">Programs</router-link></li>
-        <li><router-link to="/about">About</router-link></li>
+        <li><router-link to="/" class="nav-link hover:text-red-500 hover:drop-shadow-[0_0_3px_#f00] hover:scale-105 transition-all duration-200">Főoldal</router-link></li>
+        <li><router-link to="/programs" class="nav-link hover:text-red-500 hover:drop-shadow-[0_0_3px_#f00] hover:scale-105 transition-all duration-200">Programok</router-link></li>
+        <li><router-link to="/about" class="nav-link hover:text-red-500 hover:drop-shadow-[0_0_3px_#f00] hover:scale-105 transition-all duration-200">Rólunk</router-link></li>
       </ul>
     </div>
   </nav>
@@ -15,8 +15,7 @@
 
 <style scoped>
 .nav {
-  background: var(--bg, #b5b4b4);
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--bg, #121212);
 }
 .container {
   max-width: 1024px;
@@ -25,6 +24,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
+  color: #3f3f3fff;
+  font-family: 'Montserrat', sans-serif;
 }
 .logo {
   font-weight: 700;
@@ -46,7 +47,16 @@
   border-radius: 0.375rem;
 }
 .links a.router-link-active {
-  background: #111827;
-  color: white;
+  color: red;
+  opacity: 0.8;
+}
+.nav-link {
+  -webkit-text-stroke: 1px #000000ff;   /* fekete körvonal */
+  paint-order: stroke;        /* előbb körvonal, utána kitöltés */
+  font-size: 1.1rem;
+}
+
+.nav-link:hover {
+  -webkit-text-stroke: 1px #000000ff;   /* maradjon a fekete körvonal */
 }
 </style>
