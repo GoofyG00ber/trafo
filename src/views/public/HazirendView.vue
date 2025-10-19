@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-4xl mx-auto p-6">
     <div v-if="content" class="ql-snow">
-      <div class="ql-editor prose" v-html="content"></div>
+      <div class="ql-editor prose text-white" v-html="content"></div>
     </div>
     <div v-else class="text-gray-600">A házirend még nem érhető el.</div>
   </div>
@@ -15,10 +15,15 @@ import 'quill/dist/quill.snow.css'
 const STORAGE_KEY = 'trafo:admin:hazirend'
 const content = ref<string>('')
 
-onMounted(() => {
+onMounted(async () => {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) content.value = raw
+    const res = await fetch('http://localhost:3000/hazirend/1')
+    if (res.ok) {
+      const data = await res.json()
+      content.value = data.content
+    } else {
+      console.warn('Nem található hazirend az adatbázisban.')
+    }
   } catch (e) {
     console.error('Failed to load hazirend content', e)
   }

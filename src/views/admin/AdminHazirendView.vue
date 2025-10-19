@@ -36,12 +36,23 @@ onBeforeUnmount(() => {
   quill = null
 })
 
-function saveContent() {
+async function saveContent() {
   if (!quill) return
   try {
     const html = quill.root.innerHTML
     localStorage.setItem(STORAGE_KEY, html)
-    alert('Mentve')
+
+    // Küldjük a szerverre is
+    const res = await fetch('http://localhost:3000/hazirend/1', {
+      method: 'PUT', // létező elem frissítése
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: html
+      })
+    })
+
+    if (!res.ok) throw new Error('HTTP hiba: ' + res.status)
+    alert('Mentve szerverre is!')
   } catch (e) {
     console.error('save failed', e)
     alert('Mentés sikertelen')
