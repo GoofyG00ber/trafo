@@ -42,7 +42,7 @@ const menuItems = [
     icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 2v4M8 2v4M3 10h18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   },
   {
-    label: 'Vezer modal',
+    label: 'Vezér modal',
     to: '/admin/vezer',
     icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="14" rx="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 11h18" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   },
@@ -62,12 +62,12 @@ const menuItems = [
     icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   },
   {
-    label: 'Change password',
+    label: 'Jelszó módosítás',
     to: '/admin/change-password',
     icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="11" width="18" height="10" rx="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 11V7a5 5 0 0110 0v4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   },
   {
-    label: 'Sign out',
+    label: 'Kijelentkezés',
     action: doLogout,
     danger: true,
     icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16 17l5-5-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 12H9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 19V5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,

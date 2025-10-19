@@ -36,12 +36,23 @@ onBeforeUnmount(() => {
   quill = null
 })
 
-function saveContent() {
+async function saveContent() {
   if (!quill) return
   try {
     const html = quill.root.innerHTML
     localStorage.setItem(STORAGE_KEY, html)
-    alert('Mentve')
+
+    // Küldjük a szerverre is
+    const res = await fetch('http://localhost:3000/aszf/1', {
+      method: 'PUT', // létező elem frissítése
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        content: html
+      })
+    })
+
+    if (!res.ok) throw new Error('HTTP hiba: ' + res.status)
+    alert('Mentve szerverre is!')
   } catch (e) {
     console.error('save failed', e)
     alert('Mentés sikertelen')
@@ -52,7 +63,7 @@ function saveContent() {
 <template>
   <div class="p-4">
     <div class="flex items-center justify-between mb-3">
-      <h2 class="text-lg font-semibold">ASZF szerkesztő</h2>
+      <h2 class="text-lg font-semibold">ÁSZF szerkesztő</h2>
       <div>
         <button @click="saveContent" class="px-3 py-1 bg-blue-600 text-white rounded">
           Mentés
