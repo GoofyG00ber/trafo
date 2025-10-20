@@ -20,7 +20,6 @@
         <p class="small">+36 70 310 9528</p>
         <p class="small">trafoclub@gmail.com</p>
         <p class="small">Rendezvénytehnika: +36 70 312 3557</p>
-        <p class="small"><a link="rel" href="">Házirend</a></p>
       </div>
       <div class="footer-info">
         <p><b>Nyitvatartás</b></p>
@@ -60,11 +59,11 @@
       <div class="footer-info">
         <p>© {{ year }} Trafo. All rights reserved.</p>
         <p class="small">Built with Vue 3</p>
-        <p class="small"><router-link to="/ASZF">ÁSZF</router-link></p>
+        <p class="small"><router-link to="/ASZF" class="text-red-700">ÁSZF</router-link></p>
         <p class="small">
-          <router-link to="/privacy-policy">Adatkezelési tájékoztató</router-link>
+          <router-link to="/privacy-policy" class="text-red-700">Adatkezelési tájékoztató</router-link>
         </p>
-        <p class="small"><router-link to="/hazirend">Házirend</router-link></p>
+        <p class="small"><router-link to="/hazirend" class="text-red-700">Házirend</router-link></p>
       </div>
     </div>
   </footer>
@@ -80,7 +79,7 @@ import MapView from '@/components/MapView.vue'
 .footer {
   border-top: 1px solid #3f3f3fff;
   padding: 1rem 0;
-  background: var(--bg, #121212);
+  background: var(--bg, #ffffffff);
   display: flex;
   gap: 5px;
   flex-direction: column;
@@ -116,7 +115,7 @@ import MapView from '@/components/MapView.vue'
 
 .divider {
   border: none;
-  border-top: 1px solid #3f3f3fff;
+  border-top: 1px solid #000000ff;
   margin: 10px 0;
 }
 
@@ -144,12 +143,12 @@ import MapView from '@/components/MapView.vue'
 
 .footer-info p {
   margin: 4px 0;
-  color: #f7f7f7ff;
+  color: #000000ff;
 }
 
 .footer-info .small {
   font-size: 0.9rem;
-  color: #b9b9b9ff;
+  color: #000000ff;
 }
 
 .container {

@@ -11,47 +11,76 @@
             <feTurbulence
                 type="fractalNoise"
                 id="turbulence"
-                baseFrequency=".50"
-                numOctaves="4"
+                baseFrequency="0.08"
+                numOctaves="3"
             />
             <feDisplacementMap
                 id="displacement"
                 in="SourceGraphic"
-                scale="4"
+                scale="5"
             />
         </filter>
     </defs>
+</svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true">
+  <defs>
+    <!-- Noise source -->
+    <filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise"
+                    baseFrequency="0.13"
+                    numOctaves="4"
+                    seed="15"
+                    stitchTiles="stitch"
+                    result="noise"/>
+      <!-- Optional: strengthen contrast of the noise -->
+      <feComponentTransfer in="noise">
+        <feFuncA type="gamma" amplitude="1" exponent="1.4" offset="0"/>
+      </feComponentTransfer>
+    </filter>
+
+    <!-- Actual mask: white keeps, black hides -->
+    <mask id="squiggle-mask" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+      <!-- Full area visible by default -->
+      <rect x="0" y="0" width="1" height="1" fill="#fff"/>
+
+      <!-- Lay noise on top as *black* with some opacity so it only nibbles -->
+      <!-- Tune opacity (0.15–0.5) to control how much is eaten away -->
+      <rect x="0" y="0" width="1" height="1" fill="#000" opacity="0.28" filter="url(#nnnoise-filter)"/>
+    </mask>
+  </defs>
 </svg>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="0" height="0" opacity="1"><defs><filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="linearRGB">
 	<feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="4" seed="15" stitchTiles="stitch" x="0%" y="0%" width="100%" height="100%" result="turbulence"></feTurbulence>
 	<feSpecularLighting surfaceScale="40" specularConstant="0.5" specularExponent="20" lighting-color="#aaaaaa" x="0%" y="0%" width="100%" height="100%" in="turbulence" result="specularLighting">
     		<feDistantLight azimuth="3" elevation="40"></feDistantLight>
   	</feSpecularLighting>
-  
+
 </filter></defs></svg>
-
   <div class="px-6">
-    <div class="hero mx-auto my-6 h-96 max-w-7xl">
-      <div v-if="upcomingEvents.length" class="relative events h-full w-full flex flex-col justify-center items-center">
-        <div class="absolute inset-0 -z-10 bg-neutral-900 squiggle shadow-lg"></div>
-        <div class="absolute inset-0 -z-9  noise"></div>
-        <div class="carousel" @mouseenter="paused = true" @mouseleave="paused = false">
-          <button @click="prev(true)" class="nav prev rubik-dirt-regular  text-7xl" aria-label="Previous slide">‹</button>
+    <div class="hero relative mx-auto my-6 h-128 max-w-7xl">
+      <button @click="prev(true)" class="nav prev rubik-dirt-regular text-9xl absolute top-1/2 -left-8 text-gray-500" aria-label="Previous slide">‹</button>
+      <div class="absolute inset-0 bg-neutral-900 squiggle shadow-lg overflow-hidden bg-[url(src\components\imgs\black-concrete-textured-background.jpg)] bg-cover"></div>
+      <div v-if="upcomingEvents.length" class="relative events h-full w-full flex flex-col justify-center items-center overflow-hidden">
+        <div class="carousel h-8/10" @mouseenter="paused = true" @mouseleave="paused = true">
+          <ul class="event-track h-full" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
+            <li v-for="(event, i) in upcomingEvents" :key="event.id" class="event-item group hover:cursor-pointer">
+              <div class="grid grid-cols-2 gap-0" @click="openDetail(event)">
+                <div class="w-full h-full aspect-square grayscale group-hover:grayscale-0 transition duration-150 ease-in-out align-middle ">
+                    <img :src="event.kep" alt="event" class="absolute z-0 w-full h-full [mask-image:linear-gradient(to_right,black,transparent)] [mask-size:100%_100%] [mask-repeat:no-repeat]"/>
+                </div>
 
-          <ul class="event-track" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-            <li v-for="(event, i) in upcomingEvents" :key="event.id" class="event-item">
-              <img :src="event.kep" alt="event" class="absolute z-0 w-sm min-h-sm"/>
-              <div class="relative z-10">
-                <h3 class="rowdies-regular text-white text-4xl tracking-wider object-center">{{ event.nev }}</h3>
-                <p class="rowdies-light text-red-700 text-2xl">{{ formatDate(event.datum_ido) }}</p>
-                <p class="rowdies-light text-white">{{ event.kategoria }}</p>
+                <div class="relative z-10 flex flex-col justify-center -ml-20 pr-10">
+                  <h3 class="rowdies-regular break-normal text-white text-6xl tracking-wider object-center
+                  group-hover:text-red-700 transition duration-150 ease-in-out order-3
+                  my-1">{{ event.nev }}</h3>
+                  <p class="rowdies-light text-red-700 text-5xl order-2">{{ formatDate(event.datum_ido) }}</p>
+                  <p class="rowdies-light text-xl text-white order-1 my-3"><span class="px-3 py-2 rounded-md" :class="categoryClass(event.kategoria)">{{ event.kategoria }}</span></p>
+                </div>
               </div>
             </li>
           </ul>
-
-          <button @click="next(true)" class="nav next rubik-dirt-regular  text-7xl" aria-label="Next slide">›</button>
         </div>
-        <div v-if="upcomingEvents.length > 1" class="mt-4 flex justify-center gap-2">
+        <div v-if="upcomingEvents.length > 1" class="mt-4 flex justify-center gap-2 z-20">
           <button
             v-for="(e, i) in upcomingEvents"
             :key="e.id || i"
@@ -66,6 +95,7 @@
         </div>
       </div>
       <div v-else>Jelenleg nincs közelgő esemény.</div>
+      <button @click="next(true)" class="nav next rubik-dirt-regular text-9xl absolute top-1/2 -right-8 text-red-700" aria-label="Next slide">›</button>
     </div>
   </div>
 </template>
@@ -73,12 +103,14 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 import { getEvents } from '@/api/events'
+import { useRouter } from 'vue-router'
 
 const upcomingEvents = ref([])
 const currentIndex = ref(0)
 const paused = ref(false)
 let autoInterval = null
 const AUTO_MS = 4000
+const router = useRouter()
 
 function startAuto() {
   stopAuto()
@@ -147,6 +179,21 @@ function formatDate(dateString) {
     minute: '2-digit',
   })
 }
+
+function categoryClass(cat) {
+  const c = (cat || '').toString().toLowerCase()
+  if (c.includes('koncert')) return 'bg-red-700'
+  if (c.includes('party')) return 'bg-purple-700'
+  if (c.includes('egy')) return 'bg-teal-600'
+  return 'bg-blue-600'
+}
+function openDetail(ev) {
+  if (!ev) return
+  // prefer id property; fall back to index-like id or slug
+  const id = ev.id || ev._id || ev.slug || ev.name || ev.title
+  router.push({ name: 'EventDetail', params: { id } }).catch(() => {})
+}
+
 </script>
 
 <style scoped>
@@ -171,8 +218,6 @@ function formatDate(dateString) {
 }
 
 .carousel {
-  position: relative;
-  overflow: hidden;
   width: 100%;
 }
 
@@ -190,7 +235,7 @@ function formatDate(dateString) {
 .event-item {
   flex: 0 0 100%;
   display: flex;
-  justify-content: center;
+
   align-items: center;
   gap: 1rem;
   text-align: left;
@@ -199,17 +244,13 @@ function formatDate(dateString) {
 .event-item img {
   /*width: 80px;
   height: 80px;*/
-  border-radius: 8px;
   object-fit: cover;
   background: #fdd;
 }
 
 .nav {
-  position: absolute;
-  top: 50%;
   transform: translateY(-50%);
   background: transparent;
-  color: #b22222;
   border: none;
   padding: 0.5rem 0.9rem;
   border-radius: 9999px;
@@ -225,55 +266,6 @@ function formatDate(dateString) {
   color: #8b1a1a;
 }
 
-.prev {
-  left: 10px;
-}
-
-.next {
-  right: 10px;
-}
-
-.rowdies-light {
-  font-family: "Rowdies", sans-serif;
-  font-weight: 300;
-  font-style: normal;
-}
-
-.rowdies-regular {
-  font-family: "Rowdies", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.rowdies-bold {
-  font-family: "Rowdies", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.belanosima-regular {
-  font-family: "Belanosima", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.belanosima-semibold {
-  font-family: "Belanosima", sans-serif;
-  font-weight: 600;
-  font-style: normal;
-}
-
-.belanosima-bold {
-  font-family: "Belanosima", sans-serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.rubik-dirt-regular {
-  font-family: "Rubik Dirt", system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
 
 .squiggle {
     filter: url(#squiggle);

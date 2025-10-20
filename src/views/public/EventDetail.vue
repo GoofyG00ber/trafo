@@ -1,4 +1,5 @@
 <template>
+<div class="h-[80px]"></div>
   <div class="max-w-4xl mx-auto p-6">
     <button class="mb-4 text-sm text-blue-600" @click="goBack">← Vissza</button>
 

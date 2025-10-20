@@ -25,6 +25,7 @@
     "multer": "^2.0.2",
     "quill": "^2.0.3",
     "tailwindcss": "^4.1.14",
+    "textfit": "^2.4.0",
     "vue": "^3.5.22",
     "vue-router": "^4.5.1"
   },

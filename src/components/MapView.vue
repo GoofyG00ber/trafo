@@ -22,13 +22,11 @@ onMounted(() => {
   const marker = L.marker(position).addTo(map);
 
   // Popup szöveg
-  marker.bindPopup("Itt vagyunk 📍").openPopup();
 });
 </script>
 
 <style scoped>
 #map {
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 </style>
