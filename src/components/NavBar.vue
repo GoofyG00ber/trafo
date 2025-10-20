@@ -1,11 +1,17 @@
 <template>
-  <nav class="nav flex justify-center gap-8 py-3 text-sm uppercase tracking-wide z-100 fixed w-full" :class="[
-      'transition-all duration-200 fixed top-0 w-full z-50',
-      scrolled ? 'bg-black/70 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    ]">
-    <div class="container">
+  <nav
+    class="fixed top-0 w-full z-50 transition-all duration-200"
+    :class="[
+      (scrolled || open)
+        ? 'bg-black/70 backdrop-blur-md shadow-lg'
+        : 'bg-transparent'
+    ]"
+  >
+    <!-- Bar -->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <!-- Logo -->
       <router-link to="/" class="logo">
-        <svg width="179" height="80" viewBox="0 0 205 93" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute top-0">
+        <svg width="130" height="60" viewBox="0 0 205 93" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute top-0">
           <g filter="url(#filter0_d_2303_335)">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M17.0125 43.9543L15.9831 47.8677L11.7416 48.1561L15.3654 50.257L14.3359 54.1293L17.589 51.534L21.1716 53.6349L19.5656 49.9274L22.8188 47.3322L18.6185 47.6618L17.0125 43.9543Z" fill="white"/>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M18.042 57.6308L17.0125 61.5442L12.7711 61.8326L16.3948 63.9335L15.3654 67.847L18.6185 65.2105L22.2011 67.3114L20.5951 63.6451L23.8482 61.0087L19.6068 61.3383L18.042 57.6308Z" fill="white"/>
@@ -31,13 +37,58 @@
           </filter>
           </defs>
         </svg>
-</router-link>
-      <ul class="links rowdies-regular text-2xl tracking-wider">
+      </router-link>
+
+      <!-- Desktop links -->
+      <ul class="hidden md:flex items-center gap-6 rowdies-regular text-2xl tracking-wider">
         <li><router-link to="/" class="nav-link transition-all duration-200">Főoldal</router-link></li>
         <li><router-link to="/programs" class="nav-link transition-all duration-200">Programok</router-link></li>
         <li><router-link to="/about" class="nav-link transition-all duration-200">Rólunk</router-link></li>
       </ul>
+
+      <!-- Mobile hamburger -->
+      <button
+        type="button"
+        class="md:hidden inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-red-600"
+        :aria-expanded="open ? 'true' : 'false'"
+        aria-controls="mobile-menu"
+        @click="open = !open"
+        @keydown.esc="open = false"
+      >
+        <!-- Hamburger -->
+        <svg v-if="!open" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <!-- X -->
+        <svg v-else class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
     </div>
+
+    <!-- Mobile dropdown -->
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 -translate-y-2"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-2"
+    >
+      <div v-show="open" id="mobile-menu" class="md:hidden border-t border-white/10">
+        <ul class="px-4 py-3 space-y-2 rowdies-regular text-2xl tracking-wider">
+          <li>
+            <router-link @click="open = false" to="/" class="block nav-link transition-all duration-200">Főoldal</router-link>
+          </li>
+          <li>
+            <router-link @click="open = false" to="/programs" class="block nav-link transition-all duration-200">Programok</router-link>
+          </li>
+          <li>
+            <router-link @click="open = false" to="/about" class="block nav-link transition-all duration-200">Rólunk</router-link>
+          </li>
+        </ul>
+      </div>
+    </Transition>
   </nav>
 </template>
 
@@ -45,54 +96,42 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const scrolled = ref(false)
+const open = ref(false)
 
 onMounted(() => {
   const handleScroll = () => {
-    scrolled.value = window.scrollY > 50
+      scrolled.value = window.scrollY > 50
   }
   window.addEventListener('scroll', handleScroll)
-  onUnmounted(() => window.removeEventListener('scroll', handleScroll))
+
+  const handleResize = () => {
+    // close menu when resizing up to desktop
+    if (window.innerWidth >= 768) {
+      open.value = false
+    }
+  }
+  window.addEventListener('resize', handleResize)
+
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+    window.removeEventListener('resize', handleResize)
+  })
 })
 </script>
 
 <style scoped>
-.container {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1rem;
-  color: #3f3f3fff;
-  font-family: 'Montserrat', sans-serif;
+/* Keep your existing link styles */
+.nav-link {
+  color: transparent;
+  -webkit-text-stroke: 0.5px #ffffffff;
 }
-.logo {
-  font-weight: 700;
-  font-size: 1.125rem;
-  color: inherit;
-  text-decoration: none;
+.nav-link:hover {
+  -webkit-text-stroke: 1px #ffffffff;
 }
-.links {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-}
-.links a {
-  text-decoration: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-}
-.links a.router-link-active {
+.router-link-active {
+  -webkit-text-stroke: 0px #ffffffff;
   color: red;
   opacity: 0.8;
-  -webkit-text-stroke: 0px #ffffffff;   /* fekete körvonal */
-}
-.nav-link {
-  -webkit-text-stroke: 0.5px #ffffffff;   /* fekete körvonal */
-}
-
-.nav-link:hover {
-  -webkit-text-stroke: 1px #ffffffff;   /* maradjon a fekete körvonal */
 }
 </style>
+
