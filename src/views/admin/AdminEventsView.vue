@@ -1,18 +1,18 @@
 <template>
   <div class="admin-events max-w-4xl mx-auto p-6">
     <header class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-semibold text-gray-800">Admin — Events</h1>
+      <h1 class="text-2xl font-semibold text-gray-800">Admin — Események</h1>
       <button
         @click="startCreate"
         class="inline-flex items-center px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
       >
-        Create new event
+        Új esemény létrehozása
       </button>
     </header>
 
     <!-- moved: create panel now appears immediately under the header -->
     <section v-if="isNew" class="mt-0 mb-6 bg-white p-5 rounded border shadow-sm">
-      <h2 class="text-lg font-medium text-gray-800 mb-4">Create new event</h2>
+      <h2 class="text-lg font-medium text-gray-800 mb-4">Új esemény létrehozás</h2>
 
       <form @submit.prevent="submit" class="space-y-4">
         <!-- fixed fields always present -->
@@ -59,7 +59,7 @@
           </div>
 
           <div>
-            <label class="block text-sm font-semibold text-gray-700">Status</label>
+            <label class="block text-sm font-semibold text-gray-700">Státusz</label>
             <!-- removed add-status UI; only select remains -->
             <select v-model="edited.status" class="w-full px-3 py-2 border rounded">
               <option v-for="s in statuses" :key="s" :value="s">{{ s }}</option>
@@ -76,7 +76,7 @@
           </div>
 
           <div class="col-span-2">
-            <label class="block text-sm font-semibold text-gray-700">Description</label>
+            <label class="block text-sm font-semibold text-gray-700">Leírás</label>
             <textarea
               v-model="edited.description"
               rows="3"
@@ -112,26 +112,26 @@
             @click="addField"
             class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
           >
-            Add field
+            Hozzáadás
           </button>
         </div>
 
         <div class="flex items-center gap-3">
           <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-            Create
+            Létrehozás
           </button>
           <button
             type="button"
             @click="cancelEdit"
             class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
           >
-            Cancel
+            Vissza
           </button>
         </div>
       </form>
     </section>
 
-    <section v-if="loading" class="text-gray-600">Loading events...</section>
+    <section v-if="loading" class="text-gray-600">Események betöltése...</section>
 
     <section v-else>
       <!-- changed to 4 columns: Név | Kategória | Dátum / Idő | Művelet -->
@@ -165,7 +165,7 @@
                 @click="toggleExpand(ev)"
                 class="inline-flex items-center px-2 py-1 bg-yellow-400 text-white rounded-md hover:bg-yellow-500"
               >
-                {{ expandedId === ev.id ? 'Close' : 'Modify' }}
+                {{ expandedId === ev.id ? 'Bezárás' : 'Módosítás' }}
               </button>
             </div>
           </div>
@@ -199,7 +199,7 @@
                         @click="addKategoriOption"
                         class="px-2 py-1 bg-gray-200 rounded"
                       >
-                        Add
+                        Hozzáadás
                       </button>
                     </div>
 
@@ -243,7 +243,7 @@
                   </div>
 
                   <div class="col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700">Description</label>
+                    <label class="block text-sm font-semibold text-gray-700">Leírás</label>
                     <textarea
                       v-model="edited.description"
                       rows="3"
@@ -257,7 +257,7 @@
                   </div>
 
                   <div>
-                    <label class="block text-sm font-semibold text-gray-700">Status</label>
+                    <label class="block text-sm font-semibold text-gray-700">Státusz</label>
                     <div class="flex gap-2">
                       <select v-model="edited.status" class="w-full px-3 py-2 border rounded">
                         <option v-for="s in statuses" :key="s" :value="s">{{ s }}</option>
@@ -277,7 +277,7 @@
                     type="submit"
                     class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                   >
-                    Save
+                    Mentés
                   </button>
 
                   <button
@@ -285,7 +285,7 @@
                     @click="cancelInline"
                     class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
                   >
-                    Cancel
+                    Vissza
                   </button>
 
                   <button
@@ -293,7 +293,7 @@
                     @click="deleteEvent(edited.id)"
                     class="ml-auto px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700"
                   >
-                    Delete
+                    Törlés
                   </button>
                 </div>
               </form>
@@ -326,8 +326,8 @@ const newFieldValue = ref('')
 const newEventId = ref(null)
 
 // dropdown option lists and new-option inputs
-const kategoriak = ref(['Koncert', 'Dj Night', 'Party', 'egyéb'])
-const statuses = ref(['active', 'invisible', 'cancelled'])
+const kategoriak = ref(['Koncert', 'Dj Night', 'Party', 'Egyéb'])
+const statuses = ref(['Aktív', 'Láthatatlan', 'Lemondott'])
 const newKategoriOption = ref('')
 // removed newStatusOption and addStatusOption state
 
