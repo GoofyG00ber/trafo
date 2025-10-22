@@ -20,6 +20,7 @@ import Footer from './components/Footer.vue'
   display: flex;
   flex-direction: column;
   background: var(--bg, #373737);
+  overflow-x: hidden;
 }
 main {
   flex: 1 1 auto;
