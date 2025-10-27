@@ -56,9 +56,9 @@
   	</feSpecularLighting>
 
 </filter></defs></svg>
-  <div class="px-6">
+  <div class="px-6 overflow-x-hidden">
     <div class="hero relative mx-auto my-6 max-w-7xl">
-      <button @click="prev(true)" class="nav prev rubik-dirt-regular text-9xl absolute top-1/2 -left-8 text-red-700 text-shadow-lg/40" aria-label="Previous slide">‹</button>
+      <button @click="prev(true)" class="nav prev rubik-dirt-regular text-8xl md:text-9xl absolute top-1/2 -left-8 text-red-700 text-shadow-lg/40" aria-label="Previous slide">‹</button>
       <div class="absolute inset-0 bg-neutral-900 squiggle shadow-xl/50 overflow-hidden bg-[url(src\components\imgs\black-concrete-textured-background.jpg)] bg-cover"></div>
       <div v-if="upcomingEvents.length" class="relative events h-full w-full flex flex-col justify-center items-center overflow-hidden">
         <div class="carousel h-8/10" @mouseenter="paused = true" @mouseleave="paused = false">
@@ -95,7 +95,7 @@
         </div>
       </div>
       <div v-else>Jelenleg nincs közelgő esemény.</div>
-      <button @click="next(true)" class="nav text-shadow-lg/40 next rubik-dirt-regular text-9xl absolute top-1/2 -right-8 text-red-700" aria-label="Next slide">›</button>
+      <button @click="next(true)" class="nav text-shadow-lg/40 next rubik-dirt-regular text-8xl md:text-9xl absolute top-1/2 -right-8 text-red-700" aria-label="Next slide">›</button>
     </div>
   </div>
 </template>

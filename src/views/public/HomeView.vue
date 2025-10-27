@@ -5,10 +5,10 @@ import VezerModal from '@/components/VezerModal.vue'
 </script>
 
 <template class="relative overflow-x-hidden w-screen">
-  <img src="/src/components/imgs/rustic-gray-concrete-textured-background.jpg" class="absolute w-full mix-blend-multiply opacity-50"/>
+
   <div class="h-[80px]"></div>
   <div class="overflow-x-hidden w-screen">
-    <svg width="736" height="753" viewBox="0 0 736 753" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0 top-5  w-[70vw] md:w-[70vw] left-0 md:-left-50">
+    <svg width="736" height="753" viewBox="0 0 736 753" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0 top-5  w-[30vw] md:w-[70vw] left-0 md:-left-50">
      <g filter="url(#filter0_g_2244_530)"> <path d="M731.484 4L679.801 748.44L4 170.219L731.484 4Z" fill="#751407"/>
        <path d="M679.371 747.415L5.07965 170.484L730.94 4.63665L679.371 747.415Z" stroke="#751407"/>
      </g>
@@ -24,7 +24,7 @@ import VezerModal from '@/components/VezerModal.vue'
       </filter>
     </defs>
   </svg>
-  <svg width="557" height="534" viewBox="0 0 557 534" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0 top-30 right-10 w-[140vw] md:w-[25vw]">
+  <svg width="557" height="534" viewBox="0 0 557 534" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0 top-30 right-10 w-[20vw] md:w-[25vw]">
   <g filter="url(#filter0_g_2244_535)">
   <rect x="121.279" y="4" width="450" height="415" transform="rotate(16.4154 121.279 4)" fill="#555555"/>
   </g>

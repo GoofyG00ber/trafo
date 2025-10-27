@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-layout flex min-h-screen">
+  <div class="admin-layout flex min-h-screen bg-zinc-200">
     <aside class="sidebar w-56 bg-gray-400/30 border-r border-gray-200 p-4 min-h-screen">
       <h3 class="text-lg font-semibold mb-4">Admin</h3>
       <ul class="space-y-2">
