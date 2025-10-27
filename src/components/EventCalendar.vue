@@ -2,9 +2,9 @@
   <div class="calendar max-w-5xl mx-auto p-6 bg-black rounded-xl shadow-xl">
     <header class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-3">
-        <button class="nav text-red-500 font-bold" @click="goToMonth(-1)">‹</button>
+        <button class="nav text-red-500 font-bold rubik-dirt-regular" @click="goToMonth(-1)"><</button>
         <h2 class="text-xl font-bold text-gray-300">{{ monthTitle }}</h2>
-        <button class="nav text-red-500 font-bold" @click="goToMonth(1)">›</button>
+        <button class="nav text-red-500 font-bold rubik-dirt-regular" @click="goToMonth(1)">></button>
       </div>
       <!--<span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#8b1a1a' }"></span><span class="text-sm text-gray-600 mr-3">Koncert</span>
       <span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#7c2bdc' }"></span><span class="text-sm text-gray-600 mr-3">Buli</span>
@@ -26,7 +26,7 @@
       <div v-for="blank in blanks" :key="`b-${blank}`" class="day empty"></div>
 
       <div v-for="d in daysInMonth" :key="d" class="day">
-        <div class="day-number">{{ d }}</div>
+        <div class="day-number absolute z-10 rowdies-bold text-xl">{{ d }}</div>
         <div class="events-list">
           <div
             v-for="ev in eventsByDay[d] || []"
@@ -209,8 +209,7 @@ function openEvent(ev: any) {
   min-height: 96px;
   background: #2b2b2b;
   color: #e5e7eb;
-  padding: 6px;
-  border-radius: 4px;
+  padding: 10px;
   position: relative;
 }
 .day.empty {
@@ -218,12 +217,11 @@ function openEvent(ev: any) {
 }
 .day-number {
   position: absolute;
-  top: 1px;
-  right: 8px;
+  top: 0px;
+  right: 3px;
   font-weight: 700;
 }
 .events-list {
-  margin-top: 20px;
   gap: 6px;
 }
 .event-box {
@@ -236,7 +234,7 @@ function openEvent(ev: any) {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  transition: background-color 0.2s;  
+  transition: background-color 0.2s;
 }
 .event-title {
   font-weight: 700;

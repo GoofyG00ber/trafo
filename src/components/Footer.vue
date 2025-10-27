@@ -1,17 +1,23 @@
 <template>
-  <footer class="footer">
+  <footer v-if="!hide" class="footer bg-zinc-100">
     <div class="footer-top">
-      <div class="supporters">
-        <img src="./logos/hangfoglalo.jpg" alt="Támogató 1" />
-        <img src="./logos/kodex_rgb.jpg" alt="Támogató 2" />
-        <img src="./logos/nka.png" alt="Támogató 3" />
+      <div class="supporters mx-auto max-w-[500px] grid grid-cols-1 gap-4 md:grid-cols-3 justify-items-center">
+        <div class="order-2">
+          <img src="./logos/hangfoglalo.jpg" alt="Támogató 1" />
+        </div>
+        <div class="order-1">
+          <img src="./logos/kodex_rgb.jpg" alt="Támogató 2" />
+        </div>
+        <div class="order-3">
+          <img src="./logos/nka.png" alt="Támogató 3" />
+        </div>
       </div>
     </div>
 
     <hr class="divider" />
 
-    <div class="footer-bottom">
-      <div class="footer-map">
+    <div class="w-full md:w-[90%] py-5 px-10 footer-bottom grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto justify-items-start">
+      <div class="footer-map w-full h-full">
         <MapView />
       </div>
       <div class="footer-info">
@@ -20,57 +26,76 @@
         <p class="small">+36 70 310 9528</p>
         <p class="small">trafoclub@gmail.com</p>
         <p class="small">Rendezvénytehnika: +36 70 312 3557</p>
-      </div>
-      <div class="footer-info">
-        <p><b>Nyitvatartás</b></p>
-        <table class="small">
-          <tbody>
-            <tr>
-              <td>Hétfő</td>
-              <td>Zárva</td>
-            </tr>
-            <tr>
-              <td>Kedd</td>
-              <td>Zárva</td>
-            </tr>
-            <tr>
-              <td>Szerda</td>
-              <td>Zárva</td>
-            </tr>
-            <tr>
-              <td>Csütörtök</td>
-              <td>Zárva</td>
-            </tr>
-            <tr>
-              <td>Péntek</td>
-              <td>19:00 - 04:00</td>
-            </tr>
-            <tr>
-              <td>Szombat</td>
-              <td>19:00 - 04:00</td>
-            </tr>
-            <tr>
-              <td>Vasárnap</td>
-              <td>Zárva</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="footer-info">
         <p>© {{ year }} Trafo. All rights reserved.</p>
-        <p class="small">Built with Vue 3</p>
         <p class="small"><router-link to="/ASZF" class="text-red-700">ÁSZF</router-link></p>
         <p class="small">
           <router-link to="/privacy-policy" class="text-red-700">Adatkezelési tájékoztató</router-link>
         </p>
         <p class="small"><router-link to="/hazirend" class="text-red-700">Házirend</router-link></p>
       </div>
+      <div class="footer-info md:border-l md:pl-4 w-full">
+        <p class="pb-2"><b>Nyitvatartás</b></p>
+        <div class="grid grid-cols-2 gap-0 w-full">
+          <div>
+            Hétfő
+          </div>
+          <div>
+            Zárva
+          </div>
+          <div>
+            Kedd
+          </div>
+          <div>
+            Zárva
+          </div>
+          <div>
+            Szerda
+          </div>
+          <div>
+            Zárva
+          </div>
+          <div>
+            Csütörtök
+          </div>
+          <div>
+            Zárva
+          </div>
+          <div>
+            Péntek
+          </div>
+          <div>
+            19:00-04:00
+          </div>
+          <div>
+            Szombat
+          </div>
+          <div>
+            19:00-04:00
+          </div>
+          <div>
+            Vasárnap
+          </div>
+          <div>
+            Zárva
+          </div>
+        </div>
+      </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const hide = ref(false)
+
+const checkRoute = () => {
+  hide.value = route.path.includes('admin')
+}
+watch(route, checkRoute, { immediate: true })
+
 const year = new Date().getFullYear()
 import MapView from '@/components/MapView.vue'
 </script>
@@ -79,7 +104,6 @@ import MapView from '@/components/MapView.vue'
 .footer {
   border-top: 1px solid #3f3f3fff;
   padding: 1rem 0;
-  background: var(--bg, rgb(209, 209, 209));
   display: flex;
   gap: 5px;
   flex-direction: column;
@@ -94,11 +118,6 @@ import MapView from '@/components/MapView.vue'
 }
 
 .supporters {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
 }
 
 .supporters img {
@@ -120,25 +139,12 @@ import MapView from '@/components/MapView.vue'
 }
 
 .footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 30px;
-  flex-wrap: wrap;
 }
 
 .footer-map {
-  width: 400px;
-  height: 250px;
-  flex-shrink: 0;
-  margin-left: 5%;
 }
 
 .footer-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .footer-info p {
@@ -158,20 +164,5 @@ import MapView from '@/components/MapView.vue'
   align-items: center;
   justify-content: space-between;
   padding: 0 1rem;
-}
-@media (max-width: 900px) {
-  .footer {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-left {
-    width: 100%;
-    height: 250px;
-  }
-
-  .footer-right {
-    text-align: center;
-  }
 }
 </style>
