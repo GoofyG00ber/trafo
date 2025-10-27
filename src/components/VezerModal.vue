@@ -8,7 +8,7 @@
   >
     <div class="relative bg-neutral-900 text-gray-300 w-full max-w-xl rounded-xl shadow-2xl ring-1 ring-gray-300/10 overflow-hidden">
       <button
-        class="absolute top-3 left-3 z-50 bg-black/50 hover:bg-black/60 text-gray-300/90 hover:text-gray-300 transition-colors rounded-md px-2 py-1"
+        class="close absolute top-3 left-3 z-50 bg-black/50 hover:bg-black/60 text-gray-300/90 hover:text-gray-300 transition-colors rounded-md px-2 py-1"
         @click="close"
         aria-label="close"
       >
@@ -37,11 +37,11 @@
         <p v-if="displayContent" class="text-neutral-300 mb-4 whitespace-pre-line">
           {{ displayContent }}
         </p>
-        <div class="flex gap-3">
+        <div class="flex items-center justify-end gap-3 mt-auto pt-4">
           <router-link
             v-if="linkedEvent"
             :to="eventDetailRoute(linkedEvent)"
-            class="inline-flex items-center justify-center min-w-[130px] px-4 py-2 rounded-md font-bold uppercase text-sm shadow bg-gray-200 hover:bg-gray-100 text-red-500 hover:text-red-600 transition-colors"
+            class="secondary inline-flex items-center justify-center min-w-[130px] px-4 py-2 rounded-md font-bold uppercase text-sm shadow bg-gray-200 hover:bg-gray-100 text-red-500 hover:text-red-600 transition-colors"
             @click="close"
           >
             RÉSZLETEK
@@ -51,7 +51,7 @@
             :href="linkedEvent.tixa_link"
             target="_blank"
             rel="noopener"
-            class="inline-flex items-center justify-center min-w-[130px] px-4 py-2 rounded-md font-bold uppercase text-sm shadow bg-red-500 hover:bg-red-600 transition-colors"
+            class="primary inline-flex items-center justify-center min-w-[130px] px-4 py-2 rounded-md font-bold uppercase text-sm shadow bg-red-500 hover:bg-red-600 transition-colors"
             @click="close"
           >
             JEGYEK &gt;&gt;
@@ -179,14 +179,38 @@ const linkedEvent = computed(() => {
 })
 </script>
 <style scoped>
-.bg-gray-200 {
-  background: linear-gradient(to bottom, #f3f4f6, #999999);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-  transition: all 0.2s ease;
-}
-.bg-red-500 {
-  background: linear-gradient(to bottom, #ef4444, #b91c1c);
+.primary {
+  background: linear-gradient(to bottom, #da4a4a, #b22222);
+  color: white;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
+}
+.secondary {
+  background: linear-gradient(to bottom, #444, #222);
+  color: #ddd;
+  padding: 0.45rem 0.7rem;
+  border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+}
+.close {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.close:hover {
+  background: black/70;
+  cursor:pointer;
+}
+.primary:hover,
+.secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 </style>

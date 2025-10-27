@@ -7,7 +7,7 @@ const editorContainer = ref<HTMLElement | null>(null)
 let quill: Quill | null = null
 const STORAGE_KEY = 'trafo:admin:hazirend'
 
-onMounted(() => {
+onMounted(async () => {
   if (!editorContainer.value) return
 
   quill = new Quill(editorContainer.value, {
@@ -25,7 +25,18 @@ onMounted(() => {
     },
   })
 
-  // load saved content if present
+  try {
+    const res = await fetch('http://localhost:3000/hazirend/1')
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const data = await res.json()
+    if (data?.content && quill) {
+      quill.root.innerHTML = data.content
+      localStorage.setItem(STORAGE_KEY, data.content)
+      return
+    }
+  } catch (err) {
+    console.warn('Nem sikerült a szerverről betölteni, fallback localStorage-ra', err)
+  }
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw && quill) quill.root.innerHTML = raw
@@ -42,13 +53,11 @@ async function saveContent() {
     const html = quill.root.innerHTML
     localStorage.setItem(STORAGE_KEY, html)
 
-    // Küldjük a szerverre is
+    // 🔹 Mentés szerverre (JSON Server PUT)
     const res = await fetch('http://localhost:3000/hazirend/1', {
-      method: 'PUT', // létező elem frissítése
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        content: html
-      })
+      body: JSON.stringify({ content: html }),
     })
 
     if (!res.ok) throw new Error('HTTP hiba: ' + res.status)
@@ -78,11 +87,10 @@ async function saveContent() {
 </template>
 
 <style scoped>
-/* small tweak to ensure Quill editor inherits container styles */
 .ql-container {
   min-height: 300px;
 }
-button.mentes{
+button.mentes {
   background: linear-gradient(to bottom, #42a5f5, #1565c0);
   color: white;
   border-radius: 4px;
@@ -91,7 +99,7 @@ button.mentes{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
-button:hover{
+button:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   cursor: pointer;

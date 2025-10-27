@@ -1,10 +1,27 @@
 <template>
   <div class="calendar max-w-5xl mx-auto p-6 bg-black rounded-xl shadow-xl">
     <header class="flex items-center justify-between mb-4">
-      <div class="flex items-center gap-3">
-        <button class="nav text-red-500 font-bold" @click="goToMonth(-1)">‹</button>
-        <h2 class="text-xl font-bold text-gray-300">{{ monthTitle }}</h2>
-        <button class="nav text-red-500 font-bold" @click="goToMonth(1)">›</button>
+      <div class="relative flex items-center justify-center min-w-[225px]">
+        <!-- Bal nyíl -->
+        <button
+          class="absolute left-0 nav text-red-500 font-bold"
+          @click="goToMonth(-1)"
+        >
+          &lt;
+        </button>
+
+        <!-- Középső hónapnév -->
+        <h2 class="text-xl font-bold text-gray-300 text-center whitespace-nowrap min-w-[160px]">
+          {{ monthTitle }}
+        </h2>
+
+        <!-- Jobb nyíl -->
+        <button
+          class="absolute right-0 nav text-red-500 font-bold"
+          @click="goToMonth(1)"
+        >
+          &gt;
+        </button>
       </div>
       <!--<span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#8b1a1a' }"></span><span class="text-sm text-gray-600 mr-3">Koncert</span>
       <span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#7c2bdc' }"></span><span class="text-sm text-gray-600 mr-3">Buli</span>
@@ -202,6 +219,11 @@ function openEvent(ev: any) {
   padding: 0.25rem 0.5rem;
   cursor: pointer;
 }
+.nav:hover {
+  transform: translateY(-2px);
+  transition: all 0.2s ease;
+}
+
 .weekday {
   background: #2b2b2b;
 }
@@ -268,7 +290,6 @@ function openEvent(ev: any) {
 .cat-default {
   background: #1f6feb;
 }
-
 /* responsive */
 @media (min-width: 1024px) {
   .day {

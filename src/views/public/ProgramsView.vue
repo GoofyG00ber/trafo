@@ -58,11 +58,10 @@ onBeforeUnmount(() => {
           type="button"
           @click="setView('list')"
           :class="[
-            'relative overflow-hidden inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none',
-            viewMode === 'list' ? 'text-gray-100' : 'text-gray-400 hover:scale-105 transition-all duration-200 hover:bg-animate-gray',
+            'relative overflow-hidden inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none cursor-pointer',
+            viewMode === 'list' ? 'text-gray-100' : 'text-gray-400 hover:scale-105 transition-all duration-200 hover:bg-animate',
           ]"
           :aria-pressed="viewMode === 'list'"
-          title="Lista nézet"
         >
           <!-- List icon -->
           <svg
@@ -75,18 +74,17 @@ onBeforeUnmount(() => {
             <rect x="4" y="11" width="16" height="2" rx="1" fill="currentColor" />
             <rect x="4" y="17" width="16" height="2" rx="1" fill="currentColor" />
           </svg>
-          Lista nézet
+          Listanézet
         </button>
 
         <button
           type="button"
           @click="setView('calendar')"
           :class="[
-            'relative overflow-hidden inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none',
-            viewMode === 'calendar' ? 'text-gray-100' : 'text-gray-400 hover:scale-105 transition-all duration-200 hover:bg-animate-gray',
+            'relative overflow-hidden inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium focus:outline-none cursor-pointer',
+            viewMode === 'calendar' ? 'text-gray-100' : 'text-gray-400 hover:scale-105 transition-all duration-200 hover:bg-animate',
           ]"
           :aria-pressed="viewMode === 'calendar'"
-          title="Naptár nézet"
         >
           <!-- Calendar icon -->
           <svg
@@ -112,7 +110,7 @@ onBeforeUnmount(() => {
               stroke-linecap="round"
             />
           </svg>
-          Naptár nézet
+          Naptárnézet
         </button>
       </div>
     </div>
@@ -127,21 +125,21 @@ onBeforeUnmount(() => {
 
 <style scoped>
 /* animált háttér sáv */
-.hover\:bg-animate-gray::before {
+.hover\:bg-animate::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%; /* mennyit fedjen le */
+  width: 100%;
   height: 100%;
-  background-color: rgba(128, 128, 128, 0.25);
+  background-color: rgba(0, 0, 0, 0.25);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 1s ease;
   z-index: 0;
 }
 
-.hover\:bg-animate-gray:hover::before {
+.hover\:bg-animate:hover::before {
   transform: scaleX(1);
 }
 </style>

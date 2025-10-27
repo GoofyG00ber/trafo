@@ -81,7 +81,7 @@
             </div>
           </div>
           <h3 class="text-lg font-extrabold tracking-tight mb-2">{{ ev.nev || ev.title }}</h3>
-          <div class="flex items-center gap-3 mt-4">
+          <div class="flex items-center justify-end gap-3 mt-auto pt-4">
             <button class="btn-secondary hoverable" @click="openDetail(ev)">részletek ›</button>
             <a
               v-if="ev.tixa_link"
@@ -314,7 +314,7 @@ function imageSrc(ev: any) {
   background-color: #111;
 }
 .btn-primary {
-  background: linear-gradient(to bottom, #c43c3c, #b22222);
+  background: linear-gradient(to bottom, #da4a4a, #b22222);
   color: white;
   padding: 0.5rem 0.5rem;
   border-radius: 4px;
@@ -336,8 +336,7 @@ function imageSrc(ev: any) {
 
 .btn-secondary:hover,
 .btn-secondary:focus {
-  background: #444;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   transition:
     transform 120ms ease,
     background 120ms ease;
@@ -383,8 +382,7 @@ function imageSrc(ev: any) {
     background 120ms ease;
 }
 .btn-primary:hover {
-  transform: translateY(-1px);
-  filter: brightness(1.05);
+  transform: translateY(-2px);
 }
 .btn-primary[disabled] {
   opacity: 0.6;
