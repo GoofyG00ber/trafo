@@ -4,7 +4,7 @@
     :class="[
       (scrolled || open)
         ? 'bg-black/70 backdrop-blur-md shadow-lg'
-        : 'bg-transparent'
+        : 'bg-transparent',
     ]"
   >
     <!-- Bar -->
@@ -56,11 +56,11 @@
         @keydown.esc="open = false"
       >
         <!-- Hamburger -->
-        <svg v-if="!open" class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg v-if="!open" class="h-7 w-7 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
         <!-- X -->
-        <svg v-else class="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg v-else class="h-7 w-7 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
@@ -126,7 +126,9 @@ onMounted(() => {
   -webkit-text-stroke: 0.5px #ffffffff;
 }
 .nav-link:hover {
-  -webkit-text-stroke: 1px #ffffffff;
+  -webkit-text-stroke: 0;
+  color: #fff;
+  font-weight: 700;
 }
 .router-link-active {
   -webkit-text-stroke: 0px #ffffffff;

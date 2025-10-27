@@ -25,7 +25,7 @@
   <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true">
   <defs>
     <!-- Noise source -->
-    <filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%">
+    <filter id="noise-filter" x="-20%" y="-20%" width="140%" height="140%">
       <feTurbulence type="fractalNoise"
                     baseFrequency="0.13"
                     numOctaves="4"
@@ -58,7 +58,7 @@
 </filter></defs></svg>
   <div class="px-6">
     <div class="hero relative mx-auto my-6 h-128 max-w-7xl">
-      <button @click="prev(true)" class="nav prev rubik-dirt-regular text-9xl absolute top-1/2 -left-8 text-gray-500" aria-label="Previous slide">‹</button>
+      <button @click="prev(true)" class="nav prev rubik-dirt-regular text-9xl absolute top-1/2 -left-8 text-red-700" aria-label="Previous slide">‹</button>
       <div class="absolute inset-0 bg-neutral-900 squiggle shadow-lg overflow-hidden bg-[url(src\components\imgs\black-concrete-textured-background.jpg)] bg-cover"></div>
       <div v-if="upcomingEvents.length" class="relative events h-full w-full flex flex-col justify-center items-center overflow-hidden">
         <div class="carousel h-8/10" @mouseenter="paused = true" @mouseleave="paused = true">
@@ -95,7 +95,7 @@
         </div>
       </div>
       <div v-else>Jelenleg nincs közelgő esemény.</div>
-      <button @click="next(true)" class="nav next rubik-dirt-regular text-9xl absolute top-1/2 -right-8 text-red-700" aria-label="Next slide">›</button>
+      <button @click="next(true)" class="nav next rubik-dirt-regular text-9xl absolute top-1/2 -right-8 text-red-500" aria-label="Next slide">›</button>
     </div>
   </div>
 </template>

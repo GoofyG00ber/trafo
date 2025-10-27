@@ -6,9 +6,9 @@
     @click.self="close"
     tabindex="-1"
   >
-    <div class="relative bg-neutral-900 text-white w-full max-w-xl rounded-xl shadow-2xl ring-1 ring-white/10 overflow-hidden">
+    <div class="relative bg-neutral-900 text-gray-300 w-full max-w-xl rounded-xl shadow-2xl ring-1 ring-gray-300/10 overflow-hidden">
       <button
-        class="absolute top-3 left-3 z-50 bg-black/50 hover:bg-black/60 text-white/90 hover:text-white transition-colors rounded-md px-2 py-1"
+        class="absolute top-3 left-3 z-50 bg-black/50 hover:bg-black/60 text-gray-300/90 hover:text-gray-300 transition-colors rounded-md px-2 py-1"
         @click="close"
         aria-label="close"
       >
@@ -178,3 +178,15 @@ const linkedEvent = computed(() => {
   return null
 })
 </script>
+<style scoped>
+.bg-gray-200 {
+  background: linear-gradient(to bottom, #f3f4f6, #999999);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+.bg-red-500 {
+  background: linear-gradient(to bottom, #ef4444, #b91c1c);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+</style>

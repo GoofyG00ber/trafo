@@ -79,7 +79,7 @@ import MapView from '@/components/MapView.vue'
 .footer {
   border-top: 1px solid #3f3f3fff;
   padding: 1rem 0;
-  background: var(--bg, #ffffffff);
+  background: var(--bg, rgb(209, 209, 209));
   display: flex;
   gap: 5px;
   flex-direction: column;

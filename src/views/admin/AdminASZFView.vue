@@ -61,17 +61,17 @@ async function saveContent() {
 </script>
 
 <template>
-  <div class="p-4">
+  <div class="vezer max-w-6xl mx-auto p-6">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-lg font-semibold">ÁSZF szerkesztő</h2>
       <div>
-        <button @click="saveContent" class="px-3 py-1 bg-blue-600 text-white rounded">
+        <button @click="saveContent" class="mentes px-3 py-1 bg-blue-600 text-gray-300 rounded">
           Mentés
         </button>
       </div>
     </div>
 
-    <div class="bg-white border rounded">
+    <div class="bg-gray-100/60 border rounded">
       <div ref="editorContainer" style="min-height: 300px" />
     </div>
   </div>
@@ -81,5 +81,19 @@ async function saveContent() {
 /* small tweak to ensure Quill editor inherits container styles */
 .ql-container {
   min-height: 300px;
+}
+button.mentes{
+  background: linear-gradient(to bottom, #42a5f5, #1565c0);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 </style>
