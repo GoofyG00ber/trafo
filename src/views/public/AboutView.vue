@@ -1,5 +1,5 @@
 <template>
-  <div class="about-page bg-neutral-900 text-gray-200 min-h-screen py-16 px-6 md:px-12">
+  <div class="about-page bg-neutral-900 text-gray-200 min-h-screen py-16 px-6 md:px-12 pt-[80px]">
     <div class="max-w-6xl mx-auto space-y-16">
       <header class="text-center">
         <h1 class="text-5xl font-extrabold text-red-600 mb-3 tracking-wider">RÓLUNK</h1>
