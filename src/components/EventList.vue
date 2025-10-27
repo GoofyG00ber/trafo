@@ -1,5 +1,5 @@
 <template>
-  <div class="event-list max-w-6xl mx-auto p-6">
+  <div class="event-list max-w-6xl mx-auto p-6 mb-[80px]">
     <!-- Filters: search and date range -->
     <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
       <div class="relative flex-1 min-w-[200px]">
@@ -61,7 +61,7 @@
       <div
         v-for="ev in filteredEvents"
         :key="ev.id"
-        class="card bg-gray-800 text-white rounded overflow-hidden shadow transition-transform"
+        class="card bg-gray-800 text-white rounded overflow-hidden shadow transition-transform relative"
       >
         <button
           type="button"
@@ -80,13 +80,13 @@
               {{ formatDate(ev.datum_ido || ev.date || ev.start) }}
             </div>
           </div>
-          <h3 class="text-lg font-extrabold tracking-tight mb-2">{{ ev.nev || ev.title }}</h3>
-          <div class="flex items-center justify-end gap-3 mt-auto pt-4">
-            <button class="btn-secondary hoverable" @click="openDetail(ev)">részletek ›</button>
+          <h3 class="text-lg font-extrabold tracking-wider mb-2 pb-[40px] rubik-dirt-regular text-gray-200">{{ ev.nev || ev.title }}</h3>
+          <div class="flex items-center justify-end gap-3 pt-4 absolute bottom-3 right-4">
+            <button class="btn-secondary hoverable bg-zinc-700 py-1 px-3 hover:bg-gray-600" @click="openDetail(ev)">részletek ›</button>
             <a
               v-if="ev.tixa_link"
               :href="ev.tixa_link"
-              class="btn-primary hoverable-link"
+              class="btn-primary hoverable-link bg-red-700 hover:bg-red-800 py-1 px-3"
               target="_blank"
               rel="noopener"
               >jegyvásárlás ›</a
@@ -314,9 +314,7 @@ function imageSrc(ev: any) {
   background-color: #111;
 }
 .btn-primary {
-  background: linear-gradient(to bottom, #da4a4a, #b22222);
   color: white;
-  padding: 0.5rem 0.5rem;
   border-radius: 4px;
   border: none;
   font-weight: 600;
@@ -324,9 +322,7 @@ function imageSrc(ev: any) {
   transition: all 0.2s ease;
 }
 .btn-secondary {
-  background: linear-gradient(to bottom, #444, #222);
   color: #ddd;
-  padding: 0.45rem 0.7rem;
   border-radius: 4px;
   border: none;
   font-weight: 500;

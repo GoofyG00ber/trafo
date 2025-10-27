@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-4xl mx-auto p-6">
+  <div class="max-w-4xl mx-auto p-6 my-[80px] bg-zinc-900 rounded-md shadow-md">
     <div v-if="content" class="ql-snow">
       <div class="ql-editor prose text-gray-300" v-html="content"></div>
     </div>

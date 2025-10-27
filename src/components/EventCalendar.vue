@@ -1,5 +1,5 @@
 <template>
-  <div class="calendar max-w-5xl mx-auto p-6 bg-black rounded-xl shadow-xl">
+  <div class="calendar max-w-5xl mx-auto p-6 bg-black rounded-xl shadow-xl mb-[80px]">
     <header class="flex items-center justify-between mb-4">
       <div class="relative flex items-center justify-center min-w-[225px]">
         <!-- Bal nyíl -->
@@ -44,11 +44,11 @@
 
       <div v-for="d in daysInMonth" :key="d" class="day">
         <div class="day-number absolute z-10 rowdies-bold text-xl">{{ d }}</div>
-        <div class="events-list">
+        <div class="events-list h-full">
           <div
             v-for="ev in eventsByDay[d] || []"
             :key="ev.id"
-            class="event-box relative flex flex-col"
+            class="event-box relative h-full flex flex-col justify-between"
             :class="categoryClass(ev.kategoria || ev.kategoria_name || ev.type)"
             @click="openEvent(ev)"
             title="{{ ev.nev || ev.title }}"
@@ -252,7 +252,6 @@ function openEvent(ev: any) {
   color: white;
   font-size: 0.8rem;
   cursor: pointer;
-  height: 90px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

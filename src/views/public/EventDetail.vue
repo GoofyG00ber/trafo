@@ -1,49 +1,50 @@
 <template>
 <div class="h-[80px]"></div>
-  <div class="max-w-4xl mx-auto p-6">
-    <button class="vissza mb-4 text-sm text-blue-600" @click="goBack">← Vissza</button>
+  <div class="max-w-4xl mx-auto bg-zinc-900 rounded-xl shadow-md mb-12 text-gray-200 relative overflow-hidden w-[98%]">
+    <button class="vissza mb-4 text-sm text-gray-200 absolute top-5 left-5 text-l bg-gray-800 hover:bg-gray-600 cursor-pointer z-10" @click="goBack">← Vissza</button>
 
     <div v-if="!event" class="text-center py-12">Betöltés…</div>
 
-    <div v-else class="bg-gray-100 rounded shadow overflow-hidden">
+    <div v-else class="bg-zinc-900 rounded-xl shadow overflow-hidden z-1">
       <div
-        class="h-64 bg-cover bg-center"
+        class="h-100 bg-cover bg-top relative z-1"
         :style="{ backgroundImage: `url(${imageSrc(event)})` }"
-      ></div>
-      <div class="p-6">
+      >
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-900 opacity-100 bottom-0"></div>
+      </div>
+      <div class="p-6 relative z-10 -mt-10">
         <div class="flex items-start justify-between mb-4">
           <div>
-            <h1 class="text-2xl font-bold mb-1">{{ event.nev || event.title }}</h1>
-            <div class="text-sm text-gray-600">
+            <h1 class="text-5xl md:text-6xl font-bold mb-1 -mt-10 rubik-dirt-regular">{{ event.nev || event.title }}</h1>
+            <div class="text-lg text-gray-200">
               {{ formatDate(event.datum_ido || event.date || event.start) }}
             </div>
           </div>
           <div>
             <span
-              :class="['px-3 py-1 rounded text-sm font-semibold text-gray-100', categoryClass(event.kategoria)]"
+              :class="['px-3 py-1 rounded text-sm font-semibold text-gray-100 ml-2', categoryClass(event.kategoria)]"
             >
               {{ event.kategoria || 'egyéb' }}
             </span>
           </div>
         </div>
 
-        <div class="prose mb-4 text-gray-800">
+        <div class="prose mb-4 text-gray-200 text-lg text-justify">
           <p v-if="event.leiras || event.description">{{ event.leiras || event.description }}</p>
-          <p v-else class="text-sm text-gray-600">Nincs részletes leírás.</p>
+          <p v-else class="text-lg text-gray-600">Nincs részletes leírás.</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
           <div>
-            <h3 class="text-sm font-semibold mb-1">Helyszín</h3>
-            <div class="text-sm text-gray-700">Trafó Club</div>
+            <h3 class="text-lg font-semibold mb-1">Helyszín</h3>
+            <div class="text-md text-red-600">Trafó Club</div>
           </div>
-          <div>
-            <h3 class="text-sm font-semibold mb-1">Jegyvásárlás</h3>
+          <div class="justify-self-end">
             <div>
               <a
                 v-if="event.tixa_link"
                 :href="event.tixa_link"
-                class="btn-primary inline-block"
+                class="btn-primary inline-block px-4 py-2 bg-red-700 hover:bg-red-800 text-gray-200 font-semibold rounded"
                 target="_blank"
                 rel="noopener"
                 >Jegyvásárlás a TIXA-n</a
@@ -156,8 +157,6 @@ function categoryClass(cat: string | undefined) {
 
 <style scoped>
 .btn-primary {
-  background: linear-gradient(to bottom, #c43c3c, #b22222);
-  color: white;
   padding: 0.5rem 0.5rem;
   border-radius: 4px;
   border: none;
@@ -171,8 +170,6 @@ function categoryClass(cat: string | undefined) {
   cursor: pointer;
 }
 .vissza{
-  background: linear-gradient(to bottom, #e0e0e0, #9e9e9e);
-  color: black;
   border-radius: 4px;
   padding:0.2rem 0.5rem;
   border: none;

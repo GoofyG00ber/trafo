@@ -64,13 +64,13 @@
             Péntek
           </div>
           <div>
-            19:00-04:00
+            19:00 - 04:00
           </div>
           <div>
             Szombat
           </div>
           <div>
-            19:00-04:00
+            19:00 - 04:00
           </div>
           <div>
             Vasárnap
