@@ -3,8 +3,8 @@
     class="fixed top-0 w-full z-50 transition-all duration-200"
     :class="[
       (scrolled || open)
-        ? 'bg-black/70 backdrop-blur-md shadow-lg'
-        : 'bg-transparent',
+        ? 'bg-black/70 backdrop-blur-md shadow-xl/50'
+        : 'bg-transparent'
     ]"
   >
     <!-- Bar -->
@@ -41,15 +41,15 @@
 
       <!-- Desktop links -->
       <ul class="hidden md:flex items-center gap-6 rowdies-regular text-2xl tracking-wider">
-        <li><router-link to="/" class="nav-link transition-all duration-200">Főoldal</router-link></li>
-        <li><router-link to="/programs" class="nav-link transition-all duration-200">Programok</router-link></li>
-        <li><router-link to="/about" class="nav-link transition-all duration-200">Rólunk</router-link></li>
+        <li><router-link to="/" class="nav-link hover:text-red-700 transition-all duration-200 text-shadow-lg/40">Főoldal</router-link></li>
+        <li><router-link to="/programs" class="nav-link hover:text-red-700 transition-all duration-200 text-shadow-lg/40">Programok</router-link></li>
+        <li><router-link to="/about" class="nav-link hover:text-red-700 hover:color-red-700 transition-all duration-200 text-shadow-lg/40">Rólunk</router-link></li>
       </ul>
 
       <!-- Mobile hamburger -->
       <button
         type="button"
-        class="md:hidden inline-flex items-center justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-red-600"
+        class="md:hidden inline-flex items-center justify-center rounded-md p-2 focus:outline-none cursor-pointer"
         :aria-expanded="open ? 'true' : 'false'"
         aria-controls="mobile-menu"
         @click="open = !open"
@@ -126,9 +126,8 @@ onMounted(() => {
   -webkit-text-stroke: 0.5px #ffffffff;
 }
 .nav-link:hover {
-  -webkit-text-stroke: 0;
-  color: #fff;
-  font-weight: 700;
+  -webkit-text-stroke: 1px #ffffffff;
+  color: rgba(145, 0, 0, 0.7);
 }
 .router-link-active {
   -webkit-text-stroke: 0px #ffffffff;

@@ -57,45 +57,45 @@
 
 </filter></defs></svg>
   <div class="px-6">
-    <div class="hero relative mx-auto my-6 h-128 max-w-7xl">
-      <button @click="prev(true)" class="nav prev rubik-dirt-regular text-9xl absolute top-1/2 -left-8 text-red-700" aria-label="Previous slide">‹</button>
-      <div class="absolute inset-0 bg-neutral-900 squiggle shadow-lg overflow-hidden bg-[url(src\components\imgs\black-concrete-textured-background.jpg)] bg-cover"></div>
+    <div class="hero relative mx-auto my-6 max-w-7xl">
+      <button @click="prev(true)" class="nav prev rubik-dirt-regular text-9xl absolute top-1/2 -left-8 text-red-700 text-shadow-lg/40" aria-label="Previous slide">‹</button>
+      <div class="absolute inset-0 bg-neutral-900 squiggle shadow-xl/50 overflow-hidden bg-[url(src\components\imgs\black-concrete-textured-background.jpg)] bg-cover"></div>
       <div v-if="upcomingEvents.length" class="relative events h-full w-full flex flex-col justify-center items-center overflow-hidden">
-        <div class="carousel h-8/10" @mouseenter="paused = true" @mouseleave="paused = true">
+        <div class="carousel h-8/10" @mouseenter="paused = true" @mouseleave="paused = false">
           <ul class="event-track h-full" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
-            <li v-for="(event, i) in upcomingEvents" :key="event.id" class="event-item group hover:cursor-pointer">
-              <div class="grid grid-cols-2 gap-0" @click="openDetail(event)">
-                <div class="w-full h-full aspect-square grayscale group-hover:grayscale-0 transition duration-150 ease-in-out align-middle ">
-                    <img :src="event.kep" alt="event" class="absolute z-0 w-full h-full [mask-image:linear-gradient(to_right,black,transparent)] [mask-size:100%_100%] [mask-repeat:no-repeat]"/>
+            <li v-for="(event, i) in upcomingEvents" :key="event.id" class="event-item group hover:cursor-pointer overflow-hidden relative">
+              <div class="grid grid-cols-4 gap-0 relative top-0 h-full" @click="openDetail(event)">
+                <div class="col-span-4 md:col-span-2 h-full w-auto md:w-full md:h-full aspect-square grayscale group-hover:grayscale-0 transition duration-150 ease-in-out align-middle ">
+                    <img :src="event.kep" alt="event" class="absolute top-0 z-0 w-full h-full [mask-image:linear-gradient(to_bottom,black,transparent)] md:[mask-image:linear-gradient(to_right,black,transparent)] [mask-size:100%_100%] [mask-repeat:no-repeat]"/>
                 </div>
 
-                <div class="relative z-10 flex flex-col justify-center -ml-20 pr-10">
-                  <h3 class="rowdies-regular break-normal text-white text-6xl tracking-wider object-center
+                <div class="col-span-4 md:col-span-2 relative z-10 flex flex-col justify-center mb-20 -mt-50 mx-10 md:mb-0 md:mt-0 md:-ml-20 md:pr-10 group-hover:scale-110 transition duration-300 ease-in-out">
+                  <h3 class="rowdies-regular break-normal text-white text-3xl md:text-6xl tracking-wider object-center
                   group-hover:text-red-700 transition duration-150 ease-in-out order-3
                   my-1">{{ event.nev }}</h3>
-                  <p class="rowdies-light text-red-700 text-5xl order-2">{{ formatDate(event.datum_ido) }}</p>
-                  <p class="rowdies-light text-xl text-white order-1 my-3"><span class="px-3 py-2 rounded-md" :class="categoryClass(event.kategoria)">{{ event.kategoria }}</span></p>
+                  <p class="rowdies-light text-red-700 text-2xl md:text-5xl order-2">{{ formatDate(event.datum_ido) }}</p>
+                  <p class="rowdies-light text-md md:text-xl text-white order-1 my-3"><span class="px-2 py-1 md:px-3 md:py-2 rounded-md" :class="categoryClass(event.kategoria)">{{ event.kategoria }}</span></p>
                 </div>
               </div>
             </li>
           </ul>
         </div>
-        <div v-if="upcomingEvents.length > 1" class="mt-4 flex justify-center gap-2 z-20">
+        <div v-if="upcomingEvents.length > 1" class="mt-4 flex justify-center gap-2 z-20 absolute bottom-10 md:left-10 sm:left-1/2">
           <button
             v-for="(e, i) in upcomingEvents"
             :key="e.id || i"
             @click="goTo(i, true)"
             :aria-label="`Go to slide ${i + 1}`"
             :class="[
-              'w-3 h-3 rounded-full transition-colors',
-              currentIndex === i ? 'bg-red-600' : 'bg-gray-300',
+              'w-3 h-3 rounded-full transition-all duration-300 shadow-sm/50 inset-shadow-xs',
+              currentIndex === i ? 'bg-red-600 w-15 inset-shadow-rose-300' : 'bg-gray-300 w-3 hover:scale-125 inset-shadow-zinc-900',
               'cursor-pointer',
             ]"
           ></button>
         </div>
       </div>
       <div v-else>Jelenleg nincs közelgő esemény.</div>
-      <button @click="next(true)" class="nav next rubik-dirt-regular text-9xl absolute top-1/2 -right-8 text-red-500" aria-label="Next slide">›</button>
+      <button @click="next(true)" class="nav text-shadow-lg/40 next rubik-dirt-regular text-9xl absolute top-1/2 -right-8 text-red-700" aria-label="Next slide">›</button>
     </div>
   </div>
 </template>
