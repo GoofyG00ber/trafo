@@ -4,11 +4,11 @@ import Gallery from '@/components/Gallery.vue'
 import VezerModal from '@/components/VezerModal.vue'
 </script>
 
-<template>
+<template class="relative overflow-x-hidden w-screen">
   <img src="/src/components/imgs/rustic-gray-concrete-textured-background.jpg" class="absolute w-full mix-blend-multiply opacity-50"/>
   <div class="h-[80px]"></div>
-  <div class="overflow-x-hidden">
-    <svg width="736" height="753" viewBox="0 0 736 753" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0 top-5  w-[140vw] md:w-[70vw] left-0 md:-left-50">
+  <div class="overflow-x-hidden w-screen">
+    <svg width="736" height="753" viewBox="0 0 736 753" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0 top-5  w-[70vw] md:w-[70vw] left-0 md:-left-50">
      <g filter="url(#filter0_g_2244_530)"> <path d="M731.484 4L679.801 748.44L4 170.219L731.484 4Z" fill="#751407"/>
        <path d="M679.371 747.415L5.07965 170.484L730.94 4.63665L679.371 747.415Z" stroke="#751407"/>
      </g>
