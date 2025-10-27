@@ -25,7 +25,7 @@
   <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" aria-hidden="true">
   <defs>
     <!-- Noise source -->
-    <filter id="nnnoise-filter" x="-20%" y="-20%" width="140%" height="140%">
+    <filter id="noise-filter" x="-20%" y="-20%" width="140%" height="140%">
       <feTurbulence type="fractalNoise"
                     baseFrequency="0.13"
                     numOctaves="4"

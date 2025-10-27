@@ -19,8 +19,31 @@ import Footer from './components/Footer.vue'
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg, #373737);
-  overflow-x: hidden;
+
+  /* Alapszín (sötét betonárnyalat) */
+  background-color: var(--bg, #373737);
+
+  /* A te képed, plusz némi zaj és világos foltok */
+  background-image:
+    url('src/components/imgs/wall-texture-with-white-spots.jpg'),
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.05), transparent 60%),
+    radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.25), transparent 70%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.015) 0px,
+      rgba(255, 255, 255, 0.015) 2px,
+      rgba(0, 0, 0, 0.04) 2px,
+      rgba(0, 0, 0, 0.04) 4px
+    );
+
+  /* Térhatás */
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  /* Finom sötét árnyék a széleken */
+  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.3);
 }
 main {
   flex: 1 1 auto;

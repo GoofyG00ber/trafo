@@ -1,6 +1,6 @@
 <template>
   <div class="admin-layout flex min-h-screen">
-    <aside class="sidebar w-56 bg-gray-100 border-r border-gray-200 p-4 min-h-screen">
+    <aside class="sidebar w-56 bg-gray-400/30 border-r border-gray-200 p-4 min-h-screen">
       <h3 class="text-lg font-semibold mb-4">Admin</h3>
       <ul class="space-y-2">
         <li v-for="item in menuItems" :key="item.label">
@@ -17,7 +17,7 @@
       </ul>
     </aside>
 
-    <section class="content flex-1 p-6 bg-white min-h-screen">
+    <section class="content flex-1 p-6 min-h-screen">
       <router-view />
     </section>
   </div>
@@ -59,7 +59,7 @@ const menuItems = [
   {
     label: 'Házirend',
     to: '/admin/hazirend_editor',
-    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    icon: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M7 2h8l5 5v15a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"d="M14 2v6h6"/></svg>`
   },
   {
     label: 'Jelszó módosítás',
@@ -84,10 +84,12 @@ const menuItems = [
   width: 220px;
   padding: 1rem;
   border-right: 1px solid #e5e7eb;
+  padding-top: 3%;
 }
 .content {
   flex: 1;
   padding: 1rem;
+  padding-top: 3%;
 }
 .sidebar ul {
   list-style: none;

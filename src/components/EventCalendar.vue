@@ -3,7 +3,7 @@
     <header class="flex items-center justify-between mb-4">
       <div class="flex items-center gap-3">
         <button class="nav text-red-500 font-bold" @click="goToMonth(-1)">‹</button>
-        <h2 class="text-xl font-bold text-white">{{ monthTitle }}</h2>
+        <h2 class="text-xl font-bold text-gray-300">{{ monthTitle }}</h2>
         <button class="nav text-red-500 font-bold" @click="goToMonth(1)">›</button>
       </div>
       <!--<span class="inline-block w-3 h-3 rounded-full" :style="{ backgroundColor: '#8b1a1a' }"></span><span class="text-sm text-gray-600 mr-3">Koncert</span>
@@ -16,7 +16,7 @@
       <div
         v-for="day in weekDays"
         :key="day"
-        class="weekday bg-gray-200 text-white py-2 text-center"
+        class="weekday bg-gray-200 text-gray-300 py-2 text-center"
       >
         {{ day }}
       </div>

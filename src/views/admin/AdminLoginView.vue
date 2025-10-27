@@ -55,7 +55,7 @@ async function submit() {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   width: 320px;
-  background: white;
+  background: rgb(231, 230, 230);
 }
 label {
   display: block;

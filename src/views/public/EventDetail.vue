@@ -1,11 +1,11 @@
 <template>
 <div class="h-[80px]"></div>
   <div class="max-w-4xl mx-auto p-6">
-    <button class="mb-4 text-sm text-blue-600" @click="goBack">← Vissza</button>
+    <button class="vissza mb-4 text-sm text-blue-600" @click="goBack">← Vissza</button>
 
     <div v-if="!event" class="text-center py-12">Betöltés…</div>
 
-    <div v-else class="bg-white rounded shadow overflow-hidden">
+    <div v-else class="bg-gray-100 rounded shadow overflow-hidden">
       <div
         class="h-64 bg-cover bg-center"
         :style="{ backgroundImage: `url(${imageSrc(event)})` }"
@@ -20,7 +20,7 @@
           </div>
           <div>
             <span
-              :class="['px-3 py-1 rounded text-sm font-semibold', categoryClass(event.kategoria)]"
+              :class="['px-3 py-1 rounded text-sm font-semibold text-gray-100', categoryClass(event.kategoria)]"
             >
               {{ event.kategoria || 'egyéb' }}
             </span>
@@ -51,11 +51,6 @@
               <span v-else class="text-sm text-gray-500">Nincs jegylink megadva</span>
             </div>
           </div>
-        </div>
-
-        <div class="mt-6 text-xs text-gray-500">
-          <div>Ez csak ugy itt van xd</div>
-          <pre>{{ event }}</pre>
         </div>
       </div>
     </div>
@@ -161,9 +156,33 @@ function categoryClass(cat: string | undefined) {
 
 <style scoped>
 .btn-primary {
-  background: #b22222;
+  background: linear-gradient(to bottom, #c43c3c, #b22222);
   color: white;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+.vissza{
+  background: linear-gradient(to bottom, #e0e0e0, #9e9e9e);
+  color: black;
+  border-radius: 4px;
+  padding:0.2rem 0.5rem;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+.vissza:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 </style>

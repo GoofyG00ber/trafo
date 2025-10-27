@@ -314,16 +314,24 @@ function imageSrc(ev: any) {
   background-color: #111;
 }
 .btn-primary {
-  background: #b22222;
+  background: linear-gradient(to bottom, #c43c3c, #b22222);
   color: white;
-  padding: 0.5rem 0.75rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
 }
 .btn-secondary {
-  background: #333;
+  background: linear-gradient(to bottom, #444, #222);
   color: #ddd;
   padding: 0.45rem 0.7rem;
   border-radius: 4px;
+  border: none;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
 }
 
 .btn-secondary:hover,
@@ -344,13 +352,19 @@ function imageSrc(ev: any) {
 
 /* card hover scaling */
 .card {
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.2),
+    0 6px 20px rgba(0, 0, 0, 0.25);
   transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
+    transform 200ms ease,
+    box-shadow 200ms ease;
 }
+
 .card:hover {
-  transform: scale(1.04);
-  z-index: 4;
+  transform: translateY(-6px);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 12px 32px rgba(0, 0, 0, 0.35);
 }
 
 .img-link {

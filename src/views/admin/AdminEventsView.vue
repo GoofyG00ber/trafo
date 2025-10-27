@@ -1,17 +1,17 @@
 <template>
   <div class="admin-events max-w-4xl mx-auto p-6">
     <header class="flex items-center justify-between mb-6">
-      <h1 class="text-2xl font-semibold text-gray-800">Admin — Események</h1>
+      <h1 class="text-2xl font-semibold">Admin — Események</h1>
       <button
         @click="startCreate"
-        class="inline-flex items-center px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+        class="uj inline-flex items-center px-3 py-2 bg-green-600 text-gray-100 rounded-md hover:bg-green-700"
       >
         Új esemény létrehozása
       </button>
     </header>
 
     <!-- moved: create panel now appears immediately under the header -->
-    <section v-if="isNew" class="mt-0 mb-6 bg-white p-5 rounded border shadow-sm">
+    <section v-if="isNew" class="mt-0 mb-6 bg-gray-100 p-5 rounded border shadow-sm">
       <h2 class="text-lg font-medium text-gray-800 mb-4">Új esemény létrehozás</h2>
 
       <form @submit.prevent="submit" class="space-y-4">
@@ -117,7 +117,7 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-gray-300 rounded hover:bg-blue-700">
             Létrehozás
           </button>
           <button
@@ -131,11 +131,11 @@
       </form>
     </section>
 
-    <section v-if="loading" class="text-gray-600">Események betöltése...</section>
+    <section v-if="loading" class="text-gray-300">Események betöltése...</section>
 
     <section v-else>
       <!-- changed to 4 columns: Név | Kategória | Dátum / Idő | Művelet -->
-      <div class="grid grid-cols-4 gap-4 text-sm text-gray-500 font-medium px-3 py-2 border-b">
+      <div class="grid grid-cols-4 gap-4 text-sm text-gray-300 font-medium px-3 py-2 border-b">
         <div>Név</div>
         <div>Kategória</div>
         <div class="text-right">Dátum / Idő</div>
@@ -154,7 +154,7 @@
           :style="categoryRowStyle(ev.kategoria)"
         >
           <!-- row now has 4 columns (name, category, date, actions) -->
-          <div class="grid grid-cols-4 gap-4 items-center bg-white p-3">
+          <div class="grid grid-cols-4 gap-4 items-center bg-gray-100 p-3">
             <div class="text-sm text-gray-800 truncate">{{ ev.nev ?? '-' }}</div>
             <div class="text-sm text-gray-700 font-medium">{{ ev.kategoria ?? '-' }}</div>
             <div class="text-right text-sm text-gray-600">
@@ -163,7 +163,7 @@
             <div class="text-right">
               <button
                 @click="toggleExpand(ev)"
-                class="inline-flex items-center px-2 py-1 bg-yellow-400 text-white rounded-md hover:bg-yellow-500"
+                class="modosit inline-flex items-center px-2 py-1 bg-yellow-400 text-gray-100 rounded-md hover:bg-yellow-500"
               >
                 {{ expandedId === ev.id ? 'Bezárás' : 'Módosítás' }}
               </button>
@@ -275,7 +275,7 @@
                 <div class="flex items-center gap-3">
                   <button
                     type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    class="mentes px-4 py-2 bg-blue-600 text-gray-300 rounded hover:bg-blue-700"
                   >
                     Mentés
                   </button>
@@ -283,7 +283,7 @@
                   <button
                     type="button"
                     @click="cancelInline"
-                    class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    class="vissza px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
                   >
                     Vissza
                   </button>
@@ -291,7 +291,7 @@
                   <button
                     type="button"
                     @click="deleteEvent(edited.id)"
-                    class="ml-auto px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                    class="torol ml-auto px-3 py-2 bg-red-600 text-gray-300 rounded hover:bg-red-700"
                   >
                     Törlés
                   </button>
@@ -326,7 +326,7 @@ const newFieldValue = ref('')
 const newEventId = ref(null)
 
 // dropdown option lists and new-option inputs
-const kategoriak = ref(['Koncert', 'Dj Night', 'Party', 'Egyéb'])
+const kategoriak = ref(['Koncert', 'Buli', 'Egyéb'])
 const statuses = ref(['Aktív', 'Láthatatlan', 'Lemondott'])
 const newKategoriOption = ref('')
 // removed newStatusOption and addStatusOption state
@@ -591,6 +591,57 @@ onMounted(loadEvents)
 </script>
 
 <style scoped>
+button.uj{
+  background: linear-gradient(to bottom, #42cf00, #057c01);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+button.modosit{
+  background: linear-gradient(to bottom, #ffc15d, #d18400);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+button.mentes{
+  background: linear-gradient(to bottom, #42a5f5, #1565c0);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+button.vissza{
+  background: linear-gradient(to bottom, #e0e0e0, #9e9e9e);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+button.torol{
+  background: linear-gradient(to bottom, #f44336, #b71c1c);
+  color: white;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+
+}
+button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
 .expand-enter-from,
 .expand-leave-to {
   max-height: 0;
