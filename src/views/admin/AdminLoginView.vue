@@ -1,19 +1,19 @@
 <template>
   <div class="admin-login">
     <div class="card">
-      <h1>Admin belépés</h1>
+      <h1 class="text-2xl font-bold text-center pb-5">Admin belépés</h1>
       <form @submit.prevent="submit">
         <label>
           Jelszó
-          <input v-model="password" type="password" autocomplete="current-password" />
+          <input v-model="password" type="password" autocomplete="current-password" class="w-full"/>
         </label>
-        <label class="keep">
-          <input type="checkbox" v-model="keep" /> Maradjon bejelentkezve
-        </label>
-        <div class="actions">
-          <button type="submit">Bejelentkezés</button>
-        </div>
         <p v-if="error" class="error">{{ error }}</p>
+        <label class="keep text-left pt-2">
+          <input type="checkbox" v-model="keep"/> Maradjak bejelentkezve
+        </label>
+        <div class="actions text-right">
+          <button type="submit" class="mt-4 px-4 py-2 bg-red-700 text-zinc-50 rounded-sm hover:bg-red-900 cursor-pointer">Bejelentkezés</button>
+        </div>
       </form>
     </div>
   </div>
@@ -61,7 +61,6 @@ label {
   display: block;
 }
 input {
-  width: 100%;
   margin-top: 0.5rem;
   padding: 0.5rem;
   border: 1px solid #d1d5db;

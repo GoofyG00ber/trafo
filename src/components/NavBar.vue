@@ -1,5 +1,5 @@
 <template>
-  <nav
+  <nav v-if="!hide"
     class="fixed top-0 w-full z-50 transition-all duration-200"
     :class="[
       (scrolled || open)
@@ -93,22 +93,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const scrolled = ref(false)
 const open = ref(false)
+const hide = ref(false)
+
+const checkRoute = () => {
+  hide.value = route.path.includes('admin')
+}
+
+watch(route, checkRoute, { immediate: true })
 
 onMounted(() => {
+  checkRoute()
+
   const handleScroll = () => {
-      scrolled.value = window.scrollY > 50
+    scrolled.value = window.scrollY > 50
   }
   window.addEventListener('scroll', handleScroll)
 
   const handleResize = () => {
-    // close menu when resizing up to desktop
-    if (window.innerWidth >= 768) {
-      open.value = false
-    }
+    if (window.innerWidth >= 768) open.value = false
   }
   window.addEventListener('resize', handleResize)
 

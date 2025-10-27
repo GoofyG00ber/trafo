@@ -1,10 +1,10 @@
 <template>
-  <div class="admin-events max-w-4xl mx-auto p-6">
+  <div class="admin-events max-w-4xl mx-auto p-6 bg-gray-50 rounded-md shadow-md">
     <header class="flex items-center justify-between mb-6">
       <h1 class="text-2xl font-semibold">Admin — Események</h1>
       <button
         @click="startCreate"
-        class="uj inline-flex items-center px-3 py-2 bg-green-600 text-gray-100 rounded-md hover:bg-green-700"
+        class="uj inline-flex items-center px-3 py-1 bg-red-700 text-gray-200 rounded cursor-pointer hover:bg-red-800 transition"
       >
         Új esemény létrehozása
       </button>
@@ -96,7 +96,7 @@
           <input v-model="edited[key]" class="w-full px-3 py-2 border rounded" />
         </div>
 
-        <div class="flex gap-2 items-center">
+        <div class="flex gap-2 items-center hidden">
           <input
             v-model="newFieldKey"
             placeholder="new field key"
@@ -117,13 +117,13 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <button type="submit" class="px-4 py-2 bg-blue-600 text-gray-300 rounded hover:bg-blue-700">
+          <button type="submit" class="px-4 py-2 bg-red-600 text-gray-100 rounded hover:bg-red-700 font-semibold">
             Létrehozás
           </button>
           <button
             type="button"
             @click="cancelEdit"
-            class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+            class="px-4 py-2 bg-gray-800 text-gray-100 rounded hover:bg-gray-600 font-semibold"
           >
             Vissza
           </button>
@@ -135,7 +135,7 @@
 
     <section v-else>
       <!-- changed to 4 columns: Név | Kategória | Dátum / Idő | Művelet -->
-      <div class="grid grid-cols-4 gap-4 text-sm text-gray-300 font-medium px-3 py-2 border-b">
+      <div class="grid grid-cols-4 gap-4 text-sm text-gray-900 font-medium px-3 py-2 border-b">
         <div>Név</div>
         <div>Kategória</div>
         <div class="text-right">Dátum / Idő</div>
@@ -163,7 +163,7 @@
             <div class="text-right">
               <button
                 @click="toggleExpand(ev)"
-                class="modosit inline-flex items-center px-2 py-1 bg-yellow-400 text-gray-100 rounded-md hover:bg-yellow-500"
+                class="modosit inline-flex items-center px-2 py-1 bg-gray-800 text-gray-100 rounded-md hover:bg-gray-600"
               >
                 {{ expandedId === ev.id ? 'Bezárás' : 'Módosítás' }}
               </button>
@@ -275,7 +275,7 @@
                 <div class="flex items-center gap-3">
                   <button
                     type="submit"
-                    class="mentes px-4 py-2 bg-blue-600 text-gray-300 rounded hover:bg-blue-700"
+                    class="mentes px-4 py-2 bg-red-700 text-gray-200 rounded hover:bg-red-800"
                   >
                     Mentés
                   </button>
@@ -283,7 +283,7 @@
                   <button
                     type="button"
                     @click="cancelInline"
-                    class="vissza px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                    class="vissza px-4 py-2 bg-gray-800 rounded hover:bg-gray-600"
                   >
                     Vissza
                   </button>
@@ -291,7 +291,7 @@
                   <button
                     type="button"
                     @click="deleteEvent(edited.id)"
-                    class="torol ml-auto px-3 py-2 bg-red-600 text-gray-300 rounded hover:bg-red-700"
+                    class="torol ml-auto px-3 py-2 bg-red-700 text-gray-200 rounded hover:bg-red-800"
                   >
                     Törlés
                   </button>
@@ -592,54 +592,42 @@ onMounted(loadEvents)
 
 <style scoped>
 button.uj{
-  background: linear-gradient(to bottom, #42cf00, #057c01);
   color: white;
   border-radius: 4px;
   border: none;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 button.modosit{
-  background: linear-gradient(to bottom, #ffc15d, #d18400);
   color: white;
   border-radius: 4px;
   border: none;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 button.mentes{
-  background: linear-gradient(to bottom, #42a5f5, #1565c0);
   color: white;
   border-radius: 4px;
   border: none;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 button.vissza{
-  background: linear-gradient(to bottom, #e0e0e0, #9e9e9e);
   color: white;
   border-radius: 4px;
   border: none;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 button.torol{
-  background: linear-gradient(to bottom, #f44336, #b71c1c);
   color: white;
   border-radius: 4px;
   border: none;
   font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 
 }
 button:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
   cursor: pointer;
 }
 .expand-enter-from,
