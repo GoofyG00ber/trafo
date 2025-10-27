@@ -7,7 +7,7 @@ const editorContainer = ref<HTMLElement | null>(null)
 let quill: Quill | null = null
 const STORAGE_KEY = 'trafo:admin:privacy'
 
-onMounted(() => {
+onMounted(async() => {
   if (!editorContainer.value) return
 
   quill = new Quill(editorContainer.value, {
@@ -25,7 +25,18 @@ onMounted(() => {
     },
   })
 
-  // load saved content if present
+  try {
+    const res = await fetch('http://localhost:3000/adatkezelesi/1')
+    if (!res.ok) throw new Error('HTTP ' + res.status)
+    const data = await res.json()
+    if (data?.content && quill) {
+      quill.root.innerHTML = data.content
+      localStorage.setItem(STORAGE_KEY, data.content)
+      return
+    }
+  } catch (err) {
+    console.warn('Nem sikerült a szerverről betölteni, fallback localStorage-ra', err)
+  }
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (raw && quill) quill.root.innerHTML = raw
