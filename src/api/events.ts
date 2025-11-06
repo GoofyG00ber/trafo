@@ -7,13 +7,13 @@ export async function getEvents() {
   return res.json()
 }
 
-export async function getEvent(id) {
+export async function getEvent(id: string | number) {
   const res = await fetch(`${BASE}/${id}`)
   if (!res.ok) throw new Error(`Event not found (${res.status})`)
   return res.json()
 }
 
-export async function createEvent(data) {
+export async function createEvent(data: any) {
   const res = await fetch(BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -23,7 +23,7 @@ export async function createEvent(data) {
   return res.json()
 }
 
-export async function updateEvent(id, data) {
+export async function updateEvent(id: string | number, data: any) {
   const res = await fetch(`${BASE}/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
@@ -33,7 +33,7 @@ export async function updateEvent(id, data) {
   return res.json()
 }
 
-export async function deleteEvent(id) {
+export async function deleteEvent(id: string | number) {
   const res = await fetch(`${BASE}/${id}`, { method: 'DELETE' })
   if (!res.ok) throw new Error(`Delete failed (${res.status})`)
   return true

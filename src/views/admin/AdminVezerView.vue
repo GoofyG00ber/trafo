@@ -87,13 +87,19 @@
 import { ref, onMounted, watch } from 'vue'
 import { getEvents } from '@/api/events'
 
+interface EventData {
+  id: string | number
+  nev?: string
+  title?: string
+}
+
 /* --- Állapotok --- */
 const isManual = ref(false)
 const title = ref('')
 const content = ref('')
 const message = ref('')
 const selectedEvent = ref('')
-const events = ref([])
+const events = ref<EventData[]>([])
 
 /* --- Alapadatok betöltése onMounted --- */
 onMounted(async () => {
@@ -120,28 +126,31 @@ watch(isManual, (val) => {
 })
 
 /* --- Kép feltöltés --- */
-async function onKepChange() {
-  const file = event.target.files[0]
+async function onKepChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target?.files?.[0]
   if (file) {
     try {
-      const filename = "vezerImage.png" // egyszerűsített: mindig ugyanaz
+      // A fájl fel van töltve
+      console.log('Fájl kiválasztva:', file.name)
     } catch (e) {
-      alert('Kép feltöltése sikertelen: ' + e.message)
+      const error = e as Error
+      alert('Kép feltöltése sikertelen: ' + error.message)
     }
   }
 }
 
 /* --- Mentés gomb --- */
 async function save() {
-  const fileInput = document.querySelector('input[type="file"]')
+  const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement
   const file = fileInput?.files?.[0]
 
   let imageData = ''
   if (file) {
     // fájl beolvasása base64-re
-    imageData = await new Promise((resolve, reject) => {
+    imageData = await new Promise<string>((resolve, reject) => {
       const reader = new FileReader()
-      reader.onload = () => resolve(reader.result)
+      reader.onload = () => resolve(reader.result as string)
       reader.onerror = reject
       reader.readAsDataURL(file)
     })

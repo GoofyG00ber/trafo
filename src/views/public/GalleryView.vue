@@ -83,7 +83,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const images = Array.from({ length: 20 }, (_, i) => `/placeholder${i + 1}.jpg`)
@@ -91,9 +91,9 @@ const images = Array.from({ length: 20 }, (_, i) => `/placeholder${i + 1}.jpg`)
 const lightboxOpen = ref(false)
 const currentIndex = ref(0)
 const slideshowActive = ref(false)
-let slideshowInterval = null
+let slideshowInterval: ReturnType<typeof setInterval> | null = null
 
-function openLightbox(index) {
+function openLightbox(index: number) {
   currentIndex.value = index
   lightboxOpen.value = true
   document.body.style.overflow = 'hidden'
@@ -102,7 +102,9 @@ function openLightbox(index) {
 function closeLightbox() {
   lightboxOpen.value = false
   slideshowActive.value = false
-  clearInterval(slideshowInterval)
+  if (slideshowInterval) {
+    clearInterval(slideshowInterval)
+  }
   document.body.style.overflow = ''
 }
 
@@ -122,11 +124,13 @@ function toggleSlideshow() {
       nextImage()
     }, 1500)
   } else {
-    clearInterval(slideshowInterval)
+    if (slideshowInterval) {
+      clearInterval(slideshowInterval)
+    }
   }
 }
 
-function handleKey(e) {
+function handleKey(e: KeyboardEvent) {
   if (!lightboxOpen.value) return
   if (e.key === 'ArrowRight') nextImage()
   if (e.key === 'ArrowLeft') prevImage()
